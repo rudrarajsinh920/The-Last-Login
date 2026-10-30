@@ -5,8 +5,8 @@ import { DashboardMetrics } from '@the-last-login/shared';
 
 const router = Router();
 
-// GET /api/metrics - dashboard numbers
-router.get('/', (_req, res) => {
+// GET /api/metrics & GET /api - dashboard numbers
+router.get(['/', '/metrics'], (_req, res) => {
   try {
     const totalItems = (db.prepare('SELECT COUNT(*) as count FROM inventory_items').get() as any).count;
     const keepItems = (db.prepare("SELECT COUNT(*) as count FROM inventory_items WHERE triageStatus = 'keep'").get() as any).count;
