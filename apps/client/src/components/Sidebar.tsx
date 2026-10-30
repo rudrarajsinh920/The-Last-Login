@@ -19,9 +19,11 @@ interface SidebarProps {
   currentRoute: string;
   navigate: (route: string) => void;
   onRefreshMetrics?: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefreshMetrics }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefreshMetrics, isOpen = false, onClose }) => {
   const [readiness, setReadiness] = useState<number>(0);
   const [aiStatus, setAiStatus] = useState<string>('Checking...');
   const [isDemo, setIsDemo] = useState(true);
@@ -65,54 +67,70 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefr
     }
   };
 
+  const handleNavClick = (route: string) => {
+    navigate(route);
+    if (onClose) onClose();
+  };
+
   return (
-    <aside className="w-64 bg-olive-900 text-parchment-200 flex flex-col justify-between h-screen border-r border-olive-800 shadow-xl shrink-0 select-none">
-      {/* Brand Header */}
-      <div>
-        <div 
-          onClick={() => navigate('/')} 
-          className="p-6 cursor-pointer border-b border-olive-800/80 hover:bg-olive-800/30 transition-colors"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-marigold-500 to-terracotta-500 flex items-center justify-center shadow-glow-marigold">
-              <Flame className="w-5 h-5 text-parchment-50" />
-            </div>
-            <div>
-              <h1 className="font-serif text-xl font-medium tracking-tight text-parchment-50 leading-tight">
-                The Last Login
-              </h1>
-              <p className="text-[11px] font-mono tracking-wider text-sage-300 uppercase">
-                Digital Ofrenda
-              </p>
+    <>
+      {/* Mobile Backdrop Overlay */}
+      {isOpen && (
+        <div
+          onClick={onClose}
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden animate-fade-in"
+        />
+      )}
+
+      <aside className={`fixed inset-y-0 left-0 z-50 md:static w-64 bg-olive-900 text-parchment-200 flex flex-col justify-between h-screen border-r border-olive-800 shadow-xl shrink-0 select-none transform transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+      }`}>
+        {/* Brand Header */}
+        <div>
+          <div 
+            onClick={() => handleNavClick('/')} 
+            className="p-6 cursor-pointer border-b border-olive-800/80 hover:bg-olive-800/30 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-marigold-500 to-terracotta-500 flex items-center justify-center shadow-glow-marigold">
+                <Flame className="w-5 h-5 text-parchment-50" />
+              </div>
+              <div>
+                <h1 className="font-serif text-xl font-medium tracking-tight text-parchment-50 leading-tight">
+                  The Last Login
+                </h1>
+                <p className="text-[11px] font-mono tracking-wider text-sage-300 uppercase">
+                  Digital Ofrenda
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Navigation list */}
-        <nav className="p-3 space-y-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = currentRoute === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => navigate(item.id)}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                  isActive
-                    ? 'bg-olive-800 text-marigold-400 font-semibold shadow-inner'
-                    : 'text-parchment-300 hover:bg-olive-800/50 hover:text-parchment-50'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-marigold-400' : 'text-sage-400'}`} />
-                  <span>{item.label}</span>
-                </div>
-                {isActive && <ChevronRight className="w-4 h-4 text-marigold-400" />}
-              </button>
-            );
-          })}
-        </nav>
-      </div>
+          {/* Navigation list */}
+          <nav className="p-3 space-y-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = currentRoute === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavClick(item.id)}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    isActive
+                      ? 'bg-olive-800 text-marigold-400 font-semibold shadow-inner'
+                      : 'text-parchment-300 hover:bg-olive-800/50 hover:text-parchment-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-marigold-400' : 'text-sage-400'}`} />
+                    <span>{item.label}</span>
+                  </div>
+                  {isActive && <ChevronRight className="w-4 h-4 text-marigold-400" />}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
 
       {/* Readiness & System Footer */}
       <div className="p-4 border-t border-olive-800 space-y-4">
@@ -165,5 +183,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefr
         </div>
       </div>
     </aside>
+    </>
   );
 };

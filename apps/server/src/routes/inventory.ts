@@ -9,6 +9,11 @@ import { InventoryItem, InventoryItemSchema } from '@the-last-login/shared';
 
 const router = Router();
 
+const BLOCKED_EXTENSIONS = [
+  '.exe', '.bat', '.cmd', '.sh', '.ps1', '.vbs', '.msi', '.dll',
+  '.com', '.scr', '.jar', '.cpl', '.reg', '.wsf', '.hta'
+];
+
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
     cb(null, uploadsDir);
@@ -22,7 +27,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 100 * 1024 * 1024 } // 100 MB max
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100 MB max
+  fileFilter: (_req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (BLOCKED_EXTENSIONS.includes(ext)) {
+      return cb(new Error(`File type rejected: Executable files (${ext}) are not permitted for security.`));
+    }
+    cb(null, true);
+  }
 });
 
 // GET /api/inventory - list items with filtering & search
@@ -258,12 +270,63 @@ router.post('/:id/triage', (req, res) => {
   }
 });
 
+// PUT /api/inventory/:id - update item metadata
+router.put('/:id', (req, res) => {
+  try {
+    const { title, description, category, recipient, decisionReason, tags } = req.body;
+    const row = db.prepare('SELECT * FROM inventory_items WHERE id = ?').get(req.params.id) as any;
+    if (!row) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+
+    db.prepare(`
+      UPDATE inventory_items
+      SET title = COALESCE(?, title),
+          description = COALESCE(?, description),
+          category = COALESCE(?, category),
+          recipient = COALESCE(?, recipient),
+          decisionReason = COALESCE(?, decisionReason),
+          tags = COALESCE(?, tags)
+      WHERE id = ?
+    `).run(
+      title || null,
+      description !== undefined ? description : null,
+      category || null,
+      recipient !== undefined ? recipient : null,
+      decisionReason !== undefined ? decisionReason : null,
+      tags ? JSON.stringify(tags) : null,
+      req.params.id
+    );
+
+    logActivity('import', `Updated metadata for possession "${title || row.title}"`, { itemId: req.params.id });
+
+    res.json({ success: true });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // POST /api/inventory/:id/confirm-exorcise - irreversible deletion
 router.post('/:id/confirm-exorcise', (req, res) => {
   try {
     const row = db.prepare('SELECT * FROM inventory_items WHERE id = ?').get(req.params.id) as any;
     if (!row) {
       return res.status(404).json({ error: 'Item not found' });
+    }
+
+    // Physical file deletion from disk if within uploadsDir to prevent stranded data
+    if (row.localPath) {
+      const fullPath = path.isAbsolute(row.localPath)
+        ? row.localPath
+        : path.resolve(process.cwd(), row.localPath);
+
+      if (fullPath.startsWith(uploadsDir) && fs.existsSync(fullPath)) {
+        try {
+          fs.unlinkSync(fullPath);
+        } catch (fileErr) {
+          console.warn('Failed to delete physical file during exorcism:', fileErr);
+        }
+      }
     }
 
     db.prepare('DELETE FROM inventory_items WHERE id = ?').run(req.params.id);

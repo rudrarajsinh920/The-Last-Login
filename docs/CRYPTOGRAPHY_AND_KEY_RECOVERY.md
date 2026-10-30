@@ -1,20 +1,25 @@
-# Cryptography & Key Recovery Guide
+# Cryptography & Key Recovery Technical Specification
 
-## 1. Cryptographic Architecture
+## 1. Cryptographic Architecture & Parameter Evaluation
 
-The Last Login uses established, authenticated symmetric cryptography:
+The Last Login uses authenticated symmetric cryptography to ensure both confidentiality and integrity for estate archives:
 
-- **Algorithm:** AES-256-GCM (Galois/Counter Mode)
-- **Key Derivation Function (KDF):** PBKDF2 with HMAC-SHA256
-- **Iteration Count:** 100,000 rounds
-- **Salt:** 32 cryptographically random bytes (`crypto.randomBytes(32)`)
-- **Initialization Vector (IV):** 12 bytes (`crypto.randomBytes(12)`)
-- **Authentication Tag:** 16-byte GCM authentication tag
-- **Integrity Checksums:** SHA-256 hash calculated on every item individually and stored in the manifest
+* **Symmetric Cipher:** AES-256-GCM (Galois/Counter Mode, 256-bit key)
+* **Authenticated Tag:** 16-byte (128-bit) GCM authentication tag
+* **Key Derivation Function (KDF):** PBKDF2 with HMAC-SHA256
+* **PBKDF2 Iteration Count:** 100,000 iterations (default, with backwards compatibility check)
+* **Salt:** 32 cryptographically secure random bytes (`crypto.randomBytes(32)`)
+* **Initialization Vector (IV):** 12 cryptographically secure random bytes (`crypto.randomBytes(12)`)
+* **Integrity Checksums:** SHA-256 hash calculated individually on every asset and verified against the archive manifest
+
+### PBKDF2 Security Evaluation & Tradeoffs:
+1. **Security vs. Usability:** 100,000 rounds of PBKDF2-HMAC-SHA256 requires ~250–350ms of computation time on modern desktop hardware. This prevents interactive freezing during UI operations while offering robust resistance against offline dictionary and brute-force attacks.
+2. **Backward Compatibility:** All `.ofrenda` archives store their iteration count (`iterations: 100000`). When decrypting, `verifyAndDecryptArchive` reads `archiveData.iterations || 100000`, ensuring existing archives remain decryptable without format breaking.
+3. **DoS Protection:** Iteration counts from imported archive files are bounded between `10,000` and `2,000,000` rounds to prevent resource exhaustion attacks from maliciously crafted archive headers.
 
 ---
 
-## 2. Container Format (`.ofrenda`)
+## 2. Sealed Ofrenda Container Format (`.ofrenda`)
 
 The exported `.ofrenda` package is an encrypted JSON structure:
 
@@ -24,14 +29,15 @@ The exported `.ofrenda` package is an encrypted JSON structure:
   "createdAt": "2026-10-30T12:00:00.000Z",
   "archiveId": "ofrenda_1793343388_a1b2c3d4",
   "ownerName": "Marisol Hernandez",
-  "salt": "hex string (64 chars)",
-  "iv": "hex string (24 chars)",
-  "authTag": "hex string (32 chars)",
+  "salt": "hex string (64 characters = 32 bytes)",
+  "iv": "hex string (24 characters = 12 bytes)",
+  "authTag": "hex string (32 characters = 16 bytes)",
   "ciphertext": "base64 encoded ciphertext",
   "manifestSummary": {
     "totalItems": 6,
     "totalLetters": 2,
     "totalInterviews": 3,
+    "iterations": 100000,
     "checksumSha256": "overall sha256 checksum"
   }
 }

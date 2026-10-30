@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Shield, Flame, Info } from 'lucide-react';
+import { Plus, Shield, Flame, Menu } from 'lucide-react';
 import { CandleGlow } from './CandleGlow';
 
 interface NavbarProps {
@@ -7,31 +7,45 @@ interface NavbarProps {
   subtitle?: string;
   onOpenImport?: () => void;
   onQuickSeal?: () => void;
+  onToggleMobileMenu?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   title,
   subtitle,
   onOpenImport,
-  onQuickSeal
+  onQuickSeal,
+  onToggleMobileMenu
 }) => {
   return (
-    <header className="bg-parchment-100/90 backdrop-blur-md border-b border-parchment-300 px-8 py-4 flex items-center justify-between sticky top-0 z-30">
-      <div>
-        <div className="flex items-center gap-3">
-          <h1 className="font-serif text-2xl font-semibold text-olive-900 tracking-tight">
-            {title}
-          </h1>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-sage-200/70 text-olive-800 border border-sage-300">
-            <span className="w-1.5 h-1.5 rounded-full bg-sage-600"></span>
-            Private Local Mode
-          </span>
-        </div>
-        {subtitle && (
-          <p className="text-xs text-olive-700/80 mt-0.5 font-sans">
-            {subtitle}
-          </p>
+    <header className="bg-parchment-100/90 backdrop-blur-md border-b border-parchment-300 px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30">
+      <div className="flex items-center gap-3">
+        {onToggleMobileMenu && (
+          <button
+            onClick={onToggleMobileMenu}
+            className="md:hidden p-2 rounded-xl text-olive-800 hover:bg-parchment-300 transition-colors"
+            aria-label="Open Navigation Menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
         )}
+
+        <div>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <h1 className="font-serif text-xl sm:text-2xl font-semibold text-olive-900 tracking-tight">
+              {title}
+            </h1>
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-sage-200/70 text-olive-800 border border-sage-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-sage-600"></span>
+              Private Local Mode
+            </span>
+          </div>
+          {subtitle && (
+            <p className="text-xs text-olive-700/80 mt-0.5 font-sans hidden sm:block">
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-4">

@@ -93,33 +93,54 @@ router.post('/verify', (req, res) => {
 
 // POST /api/archive/upload-verify - upload an .ofrenda file to inspect and verify
 router.post('/upload-verify', upload.single('archiveFile'), (req, res) => {
+  let tempFilePath: string | null = null;
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No archive file uploaded' });
     }
+    tempFilePath = req.file.path;
     const passphrase = req.body.passphrase;
     if (!passphrase) {
       return res.status(400).json({ error: 'Passphrase is required for decryption' });
     }
 
-    const fileContent = fs.readFileSync(req.file.path, 'utf8');
-    fs.unlinkSync(req.file.path); // remove temp file
-
+    const fileContent = fs.readFileSync(tempFilePath, 'utf8');
     const archiveData = JSON.parse(fileContent);
     const verification = cryptoService.verifyAndDecryptArchive(archiveData as VaultArchive, passphrase);
     res.json(verification);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
+  } finally {
+    if (tempFilePath && fs.existsSync(tempFilePath)) {
+      try {
+        fs.unlinkSync(tempFilePath);
+      } catch (cleanErr) {
+        console.warn('Failed to clean temp archive file:', cleanErr);
+      }
+    }
   }
 });
 
-// GET /api/archive/download/:filename
+// GET /api/archive/download/:filename - strictly protected file download
 router.get('/download/:filename', (req, res) => {
   try {
-    const filename = path.basename(req.params.filename);
+    const rawFilename = req.params.filename;
+    // Prevent any directory traversal
+    const filename = path.basename(rawFilename);
+
+    if (!filename.endsWith('.ofrenda')) {
+      return res.status(400).json({ error: 'Access denied: Only .ofrenda archive files may be downloaded.' });
+    }
+
     const filePath = path.resolve(archivesDir, filename);
+
+    // Verify filePath is strictly contained within archivesDir
+    if (!filePath.startsWith(archivesDir)) {
+      return res.status(403).json({ error: 'Access denied: Path traversal detected.' });
+    }
+
     if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ error: 'Archive file not found' });
+      return res.status(404).json({ error: 'Archive file not found.' });
     }
 
     res.download(filePath, filename);

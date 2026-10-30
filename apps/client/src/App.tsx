@@ -20,12 +20,14 @@ export const App: React.FC = () => {
   });
 
   const [isImportOpen, setIsImportOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [seanceItemId, setSeanceItemId] = useState<string | undefined>(undefined);
   const [metricsKey, setMetricsKey] = useState(0);
 
   useEffect(() => {
     const handlePopState = () => {
       setCurrentRoute(window.location.pathname || '/');
+      setIsMobileMenuOpen(false);
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -36,6 +38,7 @@ export const App: React.FC = () => {
       window.history.pushState({}, '', route);
     }
     setCurrentRoute(route);
+    setIsMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -86,15 +89,18 @@ export const App: React.FC = () => {
         currentRoute={currentRoute}
         navigate={navigate}
         onRefreshMetrics={handleRefreshMetrics}
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-screen overflow-y-auto">
+      <div className="flex-1 flex flex-col h-screen overflow-y-auto min-w-0">
         <Navbar
           title={navMeta.title}
           subtitle={navMeta.subtitle}
           onOpenImport={() => setIsImportOpen(true)}
           onQuickSeal={() => navigate('/sealed-ofrenda')}
+          onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
         />
 
         <main className="flex-1 flex flex-col">

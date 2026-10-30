@@ -15,11 +15,13 @@ import {
   Trash2,
   Lock,
   RefreshCw,
-  Plus
+  Plus,
+  Compass
 } from 'lucide-react';
 import { api } from '../services/api';
 import { DashboardMetrics, ActivityLogEntry } from '@the-last-login/shared';
 import { CandleGlow } from '../components/CandleGlow';
+import { OnboardingModal } from '../components/OnboardingModal';
 
 interface DashboardPageProps {
   navigate: (route: string) => void;
@@ -30,6 +32,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
   const [activity, setActivity] = useState<ActivityLogEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
 
   useEffect(() => {
     loadDashboard();
@@ -106,15 +109,23 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
           <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
             <button
               onClick={onOpenImport}
-              className="flex items-center justify-center gap-2 px-5 py-3 bg-marigold-500 hover:bg-marigold-400 text-olive-950 font-semibold rounded-xl text-sm shadow-md transition-all active:scale-98"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-marigold-500 hover:bg-marigold-400 text-olive-950 font-semibold rounded-xl text-sm shadow-md transition-all active:scale-98"
             >
               <Plus className="w-4 h-4 text-olive-950" />
               <span>Add Local Files</span>
             </button>
 
             <button
+              onClick={() => setIsOnboardingOpen(true)}
+              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-olive-800 hover:bg-olive-700 text-parchment-100 rounded-xl text-sm font-medium border border-olive-700 transition-colors"
+            >
+              <Compass className="w-4 h-4 text-marigold-400" />
+              <span>Onboarding Tour</span>
+            </button>
+
+            <button
               onClick={() => navigate('/sealed-ofrenda')}
-              className="flex items-center justify-center gap-2 px-5 py-3 bg-olive-800 hover:bg-olive-700 text-parchment-100 rounded-xl text-sm font-medium border border-olive-700 transition-colors"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-olive-800/60 hover:bg-olive-800 text-parchment-200 rounded-xl text-sm font-medium border border-olive-700/80 transition-colors"
             >
               <Lock className="w-4 h-4 text-sage-300" />
               <span>Seal Vault Archive</span>
@@ -346,6 +357,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
           </div>
         </div>
       </div>
+
+      {/* Onboarding Tour Modal */}
+      <OnboardingModal
+        isOpen={isOnboardingOpen}
+        onClose={() => setIsOnboardingOpen(false)}
+        onComplete={() => setIsOnboardingOpen(false)}
+      />
     </div>
   );
 };

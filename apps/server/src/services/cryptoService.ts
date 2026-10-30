@@ -12,6 +12,7 @@ export interface ArchiveManifest {
   totalItems: number;
   totalLetters: number;
   totalInterviews: number;
+  iterations?: number;
   itemChecksums: Record<string, string>; // itemId -> sha256
   overallChecksumSha256: string;
 }
@@ -51,11 +52,12 @@ export class CryptoService {
   private readonly SALT_LENGTH = 32; // 256 bits
   private readonly IV_LENGTH = 12; // 96 bits for GCM
 
-  deriveKey(passphrase: string, salt: Buffer): Buffer {
+  deriveKey(passphrase: string, salt: Buffer, iterations: number = this.PBKDF2_ITERATIONS): Buffer {
+    const safeIterations = Math.min(Math.max(iterations, 10000), 2000000);
     return crypto.pbkdf2Sync(
       passphrase,
       salt,
-      this.PBKDF2_ITERATIONS,
+      safeIterations,
       this.KEY_LENGTH,
       'sha256'
     );
@@ -127,6 +129,7 @@ export class CryptoService {
       totalItems: approvedItems.length,
       totalLetters: approvedLetters.length,
       totalInterviews: seanceTurns.length,
+      iterations: this.PBKDF2_ITERATIONS,
       itemChecksums,
       overallChecksumSha256: payloadHash
     };
@@ -186,12 +189,27 @@ export class CryptoService {
 
   verifyAndDecryptArchive(archiveData: VaultArchive, passphrase: string): VerificationResult {
     try {
+      if (!archiveData || !archiveData.salt || !archiveData.iv || !archiveData.authTag || !archiveData.ciphertext) {
+        throw new Error('Malformed archive: missing required cryptographic components (salt, iv, authTag, or ciphertext).');
+      }
+
       const salt = Buffer.from(archiveData.salt, 'hex');
       const iv = Buffer.from(archiveData.iv, 'hex');
       const authTag = Buffer.from(archiveData.authTag, 'hex');
       const ciphertext = Buffer.from(archiveData.ciphertext, 'base64');
 
-      const key = this.deriveKey(passphrase, salt);
+      if (salt.length !== this.SALT_LENGTH) {
+        throw new Error(`Invalid salt length: expected ${this.SALT_LENGTH} bytes, got ${salt.length}`);
+      }
+      if (iv.length !== this.IV_LENGTH) {
+        throw new Error(`Invalid IV length: expected ${this.IV_LENGTH} bytes, got ${iv.length}`);
+      }
+      if (authTag.length !== 16) {
+        throw new Error(`Invalid authTag length: expected 16 bytes, got ${authTag.length}`);
+      }
+
+      const iterations = Number((archiveData as any).iterations) || Number((archiveData.manifestSummary as any)?.iterations) || this.PBKDF2_ITERATIONS;
+      const key = this.deriveKey(passphrase, salt, iterations);
       const decipher = crypto.createDecipheriv(this.ALGORITHM, key, iv);
       decipher.setAuthTag(authTag);
 

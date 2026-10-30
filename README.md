@@ -22,10 +22,11 @@ Inspired by the warmth, reverence, and sensory memories of Día de los Muertos o
 
 ---
 
-## Core Product Features
+## Core Product Features & Journeys
 
-1. **The Digital Ofrenda Landing Page (`/`):**
+1. **The Digital Ofrenda Welcome & Onboarding (`/`):**
    - Atmospheric welcome celebrating memory, privacy, and human connection.
+   - Interactive 4-step Onboarding Tour modal explaining zero-cloud architecture and key recovery.
    - Core principle: **AI assists. The user decides.**
    - 1-click launch for the **Marisol Hernandez** fictional estate scenario.
 
@@ -35,21 +36,22 @@ Inspired by the warmth, reverence, and sensory memories of Día de los Muertos o
    - Recommended next actions and recent activity audit feed.
 
 3. **Life Inventory (`/inventory`):**
-   - Explicit file selection (photos, family recipes, documents, voice notes, code).
+   - Explicit local file selection (`/api/inventory/upload` or manual).
+   - Dangerous executable extensions (`.exe`, `.bat`, `.cmd`, `.sh`, `.ps1`, etc.) blocked.
    - Full-text search and category filtering.
-   - Local storage status and SHA-256 integrity checksums.
+   - Local storage status and SHA-256 integrity checksums calculated on local disk.
    - Zero silent background scanning of user hardware.
 
 4. **Living Séance (`/seance`):**
-   - Guided, private reflective interview experience.
+   - Guided, private reflective interview experience (inspired by JournalLM Desktop).
    - One thoughtful question at a time to uncover oral histories and culinary secrets.
    - Local answer persistence, editing, skipping, and AI contextual reflection.
    - Strictly no impersonation of deceased individuals.
 
 5. **Keep / Release / Exorcise (`/decisions`):**
-   - Tactile 3-folder triage interface (Keep, Maybe/Release, Let Go/Exorcise).
+   - Tactile 3-folder triage interface (Keep, Release, Exorcise).
    - Recipient assignment and decision rationale tracking.
-   - Safe pending staging queue for items marked for exclusion/deletion.
+   - Safe pending staging queue for items marked for exclusion/deletion; requires explicit secondary confirmation before permanent file destruction.
 
 6. **Legacy Letters (`/letters`):**
    - AI-assisted compassionate drafting workspace.
@@ -57,9 +59,9 @@ Inspired by the warmth, reverence, and sensory memories of Día de los Muertos o
    - Explicit user approval required before inclusion into the sealed archive.
 
 7. **Sealed Ofrenda (`/sealed-ofrenda`):**
-   - Authenticated AES-256-GCM encryption with PBKDF2-SHA256 key derivation.
+   - Authenticated AES-256-GCM encryption with PBKDF2-SHA256 key derivation (100,000 iterations, 32-byte salt, 12-byte IV).
    - Export and download verifiable `.ofrenda` container packages.
-   - Test decryption and SHA-256 checksum integrity verification.
+   - In-app decryption and SHA-256 checksum integrity verification.
    - Printable Emergency Key Recovery Sheet for physical safe storage.
 
 8. **Memorial Preview (`/memorial-preview`):**
@@ -69,8 +71,8 @@ Inspired by the warmth, reverence, and sensory memories of Día de los Muertos o
 
 9. **Settings & Privacy (`/settings`):**
    - Local Ollama endpoint and model selector (`gemma2`, `llama3`, `qwen2.5`).
-   - Embedded offline heuristic engine toggle.
-   - Zero-cloud telemetry audit report.
+   - Embedded offline heuristic engine fallback toggle.
+   - Zero-cloud telemetry audit report (0 bytes sent outside localhost).
    - 1-click fictional demo reload and workspace reset.
 
 ---
@@ -127,7 +129,7 @@ the-last-login/
 
 ---
 
-## Privacy & Security Manifesto
+## Security & Privacy Manifesto
 
 1. **Local by Default:** All files and databases reside on the user's computer.
 2. **Zero Cloud AI Egress:** Ollama connects only to `127.0.0.1`. Offline heuristics require zero internet.

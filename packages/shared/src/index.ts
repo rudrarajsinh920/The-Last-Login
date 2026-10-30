@@ -90,11 +90,13 @@ export const VaultArchiveSchema = z.object({
   iv: z.string(),
   authTag: z.string(),
   ciphertext: z.string(),
+  iterations: z.number().optional(),
   manifestSummary: z.object({
     totalItems: z.number(),
     totalLetters: z.number(),
     totalInterviews: z.number(),
     checksumSha256: z.string(),
+    iterations: z.number().optional(),
   }),
 });
 export type VaultArchive = z.infer<typeof VaultArchiveSchema>;

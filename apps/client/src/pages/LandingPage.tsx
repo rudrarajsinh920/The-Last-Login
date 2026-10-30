@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Flame,
   ShieldCheck,
@@ -10,10 +10,12 @@ import {
   ArrowRight,
   Heart,
   CheckCircle2,
-  HardDrive
+  HardDrive,
+  Compass
 } from 'lucide-react';
 import { CandleGlow } from '../components/CandleGlow';
 import { PapelPicadoBanner } from '../components/PapelPicadoBanner';
+import { OnboardingModal } from '../components/OnboardingModal';
 import { api } from '../services/api';
 
 interface LandingPageProps {
@@ -21,6 +23,8 @@ interface LandingPageProps {
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+
   const handleLoadDemoAndEnter = async () => {
     try {
       await api.loadMarisolDemo();
@@ -53,7 +57,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsOnboardingOpen(true)}
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-olive-800 hover:text-olive-950 bg-parchment-100 hover:bg-parchment-300 border border-parchment-300 rounded-xl transition-colors"
+            >
+              <Compass className="w-3.5 h-3.5 text-marigold-600" />
+              <span>Onboarding Tour</span>
+            </button>
             <button
               onClick={() => navigate('/dashboard')}
               className="px-4 py-2 text-sm font-medium text-olive-900 hover:text-olive-700 transition-colors"
@@ -116,8 +127,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
               </button>
 
               <button
-                onClick={() => navigate('/inventory')}
+                onClick={() => setIsOnboardingOpen(true)}
                 className="flex items-center gap-2 px-5 py-3.5 bg-olive-800 hover:bg-olive-700 text-parchment-100 rounded-xl font-medium text-sm border border-olive-700 transition-colors"
+              >
+                <Compass className="w-4 h-4 text-marigold-400" />
+                <span>Take Onboarding Tour</span>
+              </button>
+
+              <button
+                onClick={() => navigate('/inventory')}
+                className="flex items-center gap-2 px-5 py-3.5 bg-olive-900/60 hover:bg-olive-800 text-parchment-200 rounded-xl font-medium text-sm border border-olive-700/80 transition-colors"
               >
                 <FolderOpen className="w-4 h-4 text-sage-300" />
                 <span>Start Fresh Inventory</span>
@@ -262,6 +281,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
           </p>
         </div>
       </footer>
+
+      {/* Onboarding Tour Modal */}
+      <OnboardingModal
+        isOpen={isOnboardingOpen}
+        onClose={() => setIsOnboardingOpen(false)}
+        onComplete={() => {
+          setIsOnboardingOpen(false);
+          handleLoadDemoAndEnter();
+        }}
+      />
     </div>
   );
 };

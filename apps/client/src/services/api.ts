@@ -76,6 +76,15 @@ export const api = {
     return data.item;
   },
 
+  async updateItem(id: string, updates: Partial<InventoryItem>): Promise<void> {
+    const res = await fetch(`${API_BASE}/inventory/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updates),
+    });
+    if (!res.ok) throw new Error('Failed to update inventory item');
+  },
+
   async triageItem(id: string, triageStatus: string, decisionReason?: string, recipient?: string): Promise<void> {
     const res = await fetch(`${API_BASE}/inventory/${id}/triage`, {
       method: 'POST',
