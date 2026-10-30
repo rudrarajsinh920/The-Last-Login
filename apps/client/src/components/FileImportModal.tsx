@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { X, Upload, ShieldAlert, FileText, Image, Music, Code, BookOpen, Utensils, CheckCircle2 } from 'lucide-react';
 import { api } from '../services/api';
 import { ItemCategory } from '@the-last-login/shared';
@@ -19,6 +19,15 @@ export const FileImportModal: React.FC<FileImportModalProps> = ({ isOpen, onClos
   const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -93,12 +102,18 @@ export const FileImportModal: React.FC<FileImportModalProps> = ({ isOpen, onClos
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-olive-950/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-parchment-100 border border-parchment-300 w-full max-w-xl rounded-2xl shadow-elevated overflow-hidden">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-olive-950/60 backdrop-blur-sm animate-fade-in"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="import-modal-title"
+    >
+      <div className="bg-parchment-100 border border-parchment-300 w-full max-w-xl rounded-2xl shadow-elevated flex flex-col max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 bg-parchment-200 border-b border-parchment-300 flex items-center justify-between">
+        <div className="px-5 sm:px-6 py-4 bg-parchment-200 border-b border-parchment-300 flex items-center justify-between shrink-0">
           <div>
-            <h3 className="font-serif text-xl font-semibold text-olive-900">
+            <h3 id="import-modal-title" className="font-serif text-xl font-semibold text-olive-900">
               Add to Life Inventory
             </h3>
             <p className="text-xs text-olive-700">
@@ -107,14 +122,15 @@ export const FileImportModal: React.FC<FileImportModalProps> = ({ isOpen, onClos
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-olive-600 hover:text-olive-900 hover:bg-parchment-300 transition-colors"
+            aria-label="Close dialog"
+            className="p-1.5 rounded-lg text-olive-600 hover:text-olive-900 hover:bg-parchment-300 transition-colors focus-visible:ring-2 focus-visible:ring-marigold-500"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-5">
+        {/* Form Body with internal scrolling */}
+        <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4 sm:space-y-5 overflow-y-auto flex-1">
           {error && (
             <div className="p-3 rounded-xl bg-terracotta-100 border border-terracotta-300 text-xs text-terracotta-700 flex items-center gap-2">
               <ShieldAlert className="w-4 h-4 shrink-0 text-terracotta-600" />

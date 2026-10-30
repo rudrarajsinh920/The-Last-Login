@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <div className="hidden lg:flex items-center gap-3 pr-4 border-r border-parchment-300">
           <CandleGlow size="sm" active={true} />
           <span className="text-xs text-olive-800 font-serif italic">
@@ -59,20 +59,24 @@ export const Navbar: React.FC<NavbarProps> = ({
         {onOpenImport && (
           <button
             onClick={onOpenImport}
-            className="flex items-center gap-2 px-4 py-2 bg-parchment-200 hover:bg-parchment-300 text-olive-900 border border-olive-900/15 rounded-xl text-sm font-medium transition-all shadow-sm active:scale-98"
+            aria-label="Add item to inventory"
+            className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 bg-parchment-200 hover:bg-parchment-300 text-olive-900 border border-olive-900/15 rounded-xl text-xs sm:text-sm font-medium transition-all shadow-sm active:scale-98 focus-visible:ring-2 focus-visible:ring-marigold-500"
           >
-            <Plus className="w-4 h-4 text-marigold-600" />
-            <span>Add to Inventory</span>
+            <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-marigold-600 shrink-0" />
+            <span className="hidden sm:inline">Add to Inventory</span>
+            <span className="sm:hidden">Add</span>
           </button>
         )}
 
         {onQuickSeal && (
           <button
             onClick={onQuickSeal}
-            className="flex items-center gap-2 px-4 py-2 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-sm font-medium transition-all shadow-md active:scale-98 hover:shadow-glow-marigold"
+            aria-label="Seal Ofrenda archive"
+            className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-xs sm:text-sm font-medium transition-all shadow-md active:scale-98 hover:shadow-glow-marigold focus-visible:ring-2 focus-visible:ring-marigold-500"
           >
-            <Shield className="w-4 h-4 text-marigold-400" />
-            <span>Seal Ofrenda</span>
+            <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-marigold-400 shrink-0" />
+            <span className="hidden sm:inline">Seal Ofrenda</span>
+            <span className="sm:hidden">Seal</span>
           </button>
         )}
       </div>

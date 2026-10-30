@@ -96,18 +96,26 @@ export const SealedOfrendaPage: React.FC = () => {
 
     try {
       if (selectedFile) {
-        // Upload & verify
-        const formData = new FormData();
-        formData.append('archiveFile', selectedFile);
-        formData.append('passphrase', verifyPassphrase);
+        // First try reading and verifying in-browser (works 100% offline and on Vercel)
+        try {
+          const text = await selectedFile.text();
+          const archiveData = JSON.parse(text);
+          const data = await api.verifyArchive(archiveData, verifyPassphrase);
+          setVerificationResult(data);
+        } catch {
+          // If in-browser parsing fails, fallback to server upload endpoint
+          const formData = new FormData();
+          formData.append('archiveFile', selectedFile);
+          formData.append('passphrase', verifyPassphrase);
 
-        const res = await fetch('/api/archive/upload-verify', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Verification failed');
-        setVerificationResult(data);
+          const res = await fetch('/api/archive/upload-verify', {
+            method: 'POST',
+            body: formData
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Verification failed');
+          setVerificationResult(data);
+        }
       } else if (sealedArchive?.archive) {
         // Verify current sealed archive
         const data = await api.verifyArchive(sealedArchive.archive, verifyPassphrase);

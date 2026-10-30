@@ -178,11 +178,11 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
       </div>
 
       {/* Target a Specific Inventory Item dropdown */}
-      <div className="p-4 rounded-2xl bg-parchment-100 border border-parchment-300 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <div className="p-4 rounded-2xl bg-parchment-100 border border-parchment-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
         <span className="font-semibold text-olive-900">
           Focus interview on a specific digital possession:
         </span>
-        <div className="flex items-center gap-2 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
           <select
             value={selectedItemId}
             onChange={(e) => setSelectedItemId(e.target.value)}
@@ -197,7 +197,7 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
           </select>
           <button
             onClick={() => handleAskNewQuestion(selectedItemId)}
-            className="px-3 py-2 bg-sage-600 hover:bg-sage-500 text-parchment-50 rounded-xl font-medium shrink-0 transition-colors"
+            className="px-3.5 py-2 bg-sage-600 hover:bg-sage-500 text-parchment-50 rounded-xl font-medium shrink-0 transition-colors text-center focus-visible:ring-2 focus-visible:ring-marigold-500"
           >
             Ask About This
           </button>

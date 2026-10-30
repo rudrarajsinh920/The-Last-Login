@@ -333,14 +333,15 @@ export const api = {
     try {
       return await fetchJson(`${API_BASE}/archive/status`);
     } catch {
-      const memorial = clientStore.getMemorialItems();
+      const m = clientStore.getMetrics();
       return {
         isSealed: true,
-        readyToSeal: true,
-        itemsCount: memorial.items.length,
-        lettersCount: memorial.letters.length,
-        interviewsCount: memorial.turns.length,
-        exorcisedCount: 1,
+        readyToSeal: m.unassignedItems === 0,
+        approvedTotal: m.keepItems + m.releaseItems,
+        approvedLetters: m.approvedLetters,
+        completedInterviews: m.completedInterviews,
+        exorciseItems: m.exorciseItems,
+        unassignedItems: m.unassignedItems,
         latestArchive: null
       };
     }

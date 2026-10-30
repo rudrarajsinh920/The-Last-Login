@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   ShieldCheck,
@@ -31,6 +31,15 @@ export const ItemDetailModal: React.FC<ItemDetailModalProps> = ({
   onUpdate,
   onOpenSeanceForItem
 }) => {
+  useEffect(() => {
+    if (!item) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [item, onClose]);
+
   if (!item) return null;
 
   const [triageStatus, setTriageStatus] = useState<TriageStatus>(item.triageStatus);
@@ -79,10 +88,16 @@ export const ItemDetailModal: React.FC<ItemDetailModalProps> = ({
   const CategoryIcon = categoryIcons[item.category] || Tag;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-olive-950/65 backdrop-blur-sm animate-fade-in">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-olive-950/65 backdrop-blur-sm animate-fade-in"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="item-detail-title"
+    >
       <div className="bg-parchment-100 border border-parchment-300 w-full max-w-2xl rounded-2xl shadow-elevated overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="px-6 py-4 bg-parchment-200 border-b border-parchment-300 flex items-center justify-between">
+        <div className="px-5 sm:px-6 py-4 bg-parchment-200 border-b border-parchment-300 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-sage-200 text-olive-900 flex items-center justify-center border border-sage-300">
               <CategoryIcon className="w-5 h-5 text-olive-800" />
@@ -91,14 +106,15 @@ export const ItemDetailModal: React.FC<ItemDetailModalProps> = ({
               <span className="text-xs font-mono uppercase tracking-wider text-sage-600 font-semibold">
                 {item.category}
               </span>
-              <h3 className="font-serif text-xl font-bold text-olive-900 leading-tight">
+              <h3 id="item-detail-title" className="font-serif text-xl font-bold text-olive-900 leading-tight">
                 {item.title}
               </h3>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-olive-600 hover:text-olive-900 hover:bg-parchment-300 transition-colors"
+            aria-label="Close details"
+            className="p-1.5 rounded-lg text-olive-600 hover:text-olive-900 hover:bg-parchment-300 transition-colors focus-visible:ring-2 focus-visible:ring-marigold-500"
           >
             <X className="w-5 h-5" />
           </button>

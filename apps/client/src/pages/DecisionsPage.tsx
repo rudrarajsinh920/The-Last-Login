@@ -191,15 +191,15 @@ export const DecisionsPage: React.FC = () => {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex items-center justify-between border-b border-parchment-300 pb-2">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-parchment-300 pb-2.5">
+        <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 scrollbar-none">
           {(['all', 'unassigned', 'keep', 'release', 'exorcise'] as const).map(tab => (
             <button
               key={tab}
               onClick={() => setSelectedFilter(tab)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium uppercase tracking-wider transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium uppercase tracking-wider whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-marigold-500 ${
                 selectedFilter === tab
-                  ? 'bg-olive-900 text-parchment-50 font-bold'
+                  ? 'bg-olive-900 text-parchment-50 font-bold shadow-sm'
                   : 'text-olive-700 hover:bg-parchment-300'
               }`}
             >
@@ -208,7 +208,7 @@ export const DecisionsPage: React.FC = () => {
           ))}
         </div>
 
-        <span className="text-xs text-olive-600 font-mono">
+        <span className="text-xs text-olive-600 font-mono shrink-0">
           Showing {filteredItems.length} possessions
         </span>
       </div>

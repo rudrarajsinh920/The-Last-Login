@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   ShieldCheck,
@@ -22,6 +22,15 @@ interface OnboardingModalProps {
 
 export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClose, onComplete }) => {
   const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -155,10 +164,16 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-olive-950/70 backdrop-blur-sm animate-fade-in">
-      <div className="bg-parchment-100 border border-parchment-300 w-full max-w-lg rounded-2xl shadow-elevated overflow-hidden flex flex-col">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-olive-950/70 backdrop-blur-sm animate-fade-in"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="onboarding-modal-title"
+    >
+      <div className="bg-parchment-100 border border-parchment-300 w-full max-w-lg rounded-2xl shadow-elevated flex flex-col max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 bg-parchment-200 border-b border-parchment-300 flex items-center justify-between">
+        <div className="px-5 sm:px-6 py-4 bg-parchment-200 border-b border-parchment-300 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-olive-900 text-marigold-400 flex items-center justify-center shadow-sm">
               <Icon className="w-4 h-4" />
@@ -170,16 +185,17 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
 
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-olive-600 hover:text-olive-900 hover:bg-parchment-300 transition-colors"
+            aria-label="Close onboarding"
+            className="p-1.5 rounded-lg text-olive-600 hover:text-olive-900 hover:bg-parchment-300 transition-colors focus-visible:ring-2 focus-visible:ring-marigold-500"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Content Body */}
-        <div className="p-6 space-y-4">
+        {/* Content Body with internal scrolling */}
+        <div className="p-5 sm:p-6 space-y-4 overflow-y-auto flex-1">
           <div>
-            <h3 className="font-serif text-2xl font-bold text-olive-950 leading-tight">
+            <h3 id="onboarding-modal-title" className="font-serif text-2xl font-bold text-olive-950 leading-tight">
               {current.title}
             </h3>
             <p className="text-xs text-olive-700 mt-0.5 font-sans">

@@ -32,7 +32,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefr
 
   useEffect(() => {
     loadStatus();
-  }, []);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen && onClose) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   const loadStatus = async () => {
     try {
@@ -119,7 +127,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefr
           </div>
 
           {/* Navigation list */}
-          <nav className="p-3 space-y-1">
+          <nav className="p-3 space-y-1" aria-label="Main Navigation">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentRoute === item.id;
@@ -127,7 +135,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefr
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 min-h-[44px] rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-marigold-400 ${
                     isActive
                       ? 'bg-olive-800 text-marigold-400 font-semibold shadow-inner'
                       : 'text-parchment-300 hover:bg-olive-800/50 hover:text-parchment-50'

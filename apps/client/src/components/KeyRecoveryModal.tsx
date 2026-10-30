@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, Printer, ShieldAlert, KeyRound, Lock } from 'lucide-react';
 
 interface KeyRecoveryModalProps {
@@ -16,6 +16,15 @@ export const KeyRecoveryModal: React.FC<KeyRecoveryModalProps> = ({
   ownerName = 'Marisol Hernandez',
   passphraseHint = 'Abuela birth year and birthplace'
 }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handlePrint = () => {
@@ -23,14 +32,20 @@ export const KeyRecoveryModal: React.FC<KeyRecoveryModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-olive-950/70 backdrop-blur-sm animate-fade-in print:bg-white print:p-0">
-      <div className="bg-parchment-100 border border-parchment-400 w-full max-w-2xl rounded-2xl shadow-elevated overflow-hidden print:border-none print:shadow-none print:w-full print:max-w-none">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-olive-950/70 backdrop-blur-sm animate-fade-in print:bg-white print:p-0"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="key-recovery-title"
+    >
+      <div className="bg-parchment-100 border border-parchment-400 w-full max-w-2xl rounded-2xl shadow-elevated flex flex-col max-h-[90vh] overflow-hidden print:border-none print:shadow-none print:w-full print:max-w-none print:max-h-none">
         {/* Header */}
-        <div className="px-6 py-4 bg-olive-900 text-parchment-100 flex items-center justify-between print:bg-white print:text-black print:border-b-2 print:border-black">
+        <div className="px-5 sm:px-6 py-4 bg-olive-900 text-parchment-100 flex items-center justify-between shrink-0 print:bg-white print:text-black print:border-b-2 print:border-black">
           <div className="flex items-center gap-3">
             <KeyRound className="w-5 h-5 text-marigold-400 print:text-black" />
             <div>
-              <h3 className="font-serif text-lg font-bold tracking-tight">
+              <h3 id="key-recovery-title" className="font-serif text-lg font-bold tracking-tight">
                 Emergency Estate Passphrase Sheet
               </h3>
               <p className="text-xs text-sage-300 print:text-gray-600 font-mono">
@@ -40,14 +55,15 @@ export const KeyRecoveryModal: React.FC<KeyRecoveryModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-parchment-300 hover:text-white hover:bg-olive-800 transition-colors print:hidden"
+            aria-label="Close modal"
+            className="p-1.5 rounded-lg text-parchment-300 hover:text-white hover:bg-olive-800 transition-colors focus-visible:ring-2 focus-visible:ring-marigold-400 print:hidden"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Printable Body */}
-        <div className="p-8 space-y-6 text-olive-900 font-sans print:p-6 print:text-black">
+        {/* Printable Body with scrolling */}
+        <div className="p-5 sm:p-8 space-y-6 text-olive-900 font-sans overflow-y-auto flex-1 print:p-6 print:text-black print:overflow-visible">
           {/* Warning Banner */}
           <div className="p-4 rounded-xl bg-parchment-200 border border-parchment-300 text-xs text-olive-800 space-y-1">
             <div className="flex items-center gap-2 font-semibold text-olive-950">

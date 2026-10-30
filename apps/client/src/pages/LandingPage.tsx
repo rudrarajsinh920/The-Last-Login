@@ -57,26 +57,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
               onClick={() => setIsOnboardingOpen(true)}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-olive-800 hover:text-olive-950 bg-parchment-100 hover:bg-parchment-300 border border-parchment-300 rounded-xl transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-olive-800 hover:text-olive-950 bg-parchment-100 hover:bg-parchment-300 border border-parchment-300 rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-marigold-500"
             >
               <Compass className="w-3.5 h-3.5 text-marigold-600" />
               <span>Onboarding Tour</span>
             </button>
             <button
               onClick={() => navigate('/dashboard')}
-              className="px-4 py-2 text-sm font-medium text-olive-900 hover:text-olive-700 transition-colors"
+              className="hidden xs:inline-block px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-olive-900 hover:text-olive-700 transition-colors"
             >
-              Open Dashboard
+              Dashboard
             </button>
             <button
               onClick={handleLoadDemoAndEnter}
-              className="flex items-center gap-2 px-5 py-2.5 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-sm font-medium shadow-md transition-all hover:shadow-glow-marigold"
+              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-xs sm:text-sm font-medium shadow-md transition-all hover:shadow-glow-marigold focus-visible:ring-2 focus-visible:ring-marigold-500"
             >
-              <span>Explore Marisol Demo</span>
-              <ArrowRight className="w-4 h-4 text-marigold-400" />
+              <span className="hidden sm:inline">Explore Marisol Demo</span>
+              <span className="sm:hidden">Explore Demo</span>
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-marigold-400" />
             </button>
           </div>
         </header>

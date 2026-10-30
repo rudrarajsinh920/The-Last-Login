@@ -182,7 +182,7 @@ export function loadMarisolDemoData() {
 
   // Insert items into database
   const insertItem = db.prepare(`
-    INSERT INTO inventory_items (
+    INSERT OR REPLACE INTO inventory_items (
       id, title, description, category, fileType, fileSize, fileName, localPath,
       contentSnippet, previewUrl, hash, importedAt, triageStatus, decisionReason,
       recipient, aiSuggestedStatus, aiConfidence, aiRationale, isPendingExorcism,
@@ -283,7 +283,7 @@ export function loadMarisolDemoData() {
   ];
 
   const insertTurn = db.prepare(`
-    INSERT INTO seance_turns (
+    INSERT OR REPLACE INTO seance_turns (
       id, question, category, associatedItemId, associatedItemTitle,
       aiPromptContext, userAnswer, isSkipped, createdAt, updatedAt, aiReflection
     ) VALUES (
@@ -349,7 +349,7 @@ export function loadMarisolDemoData() {
   ];
 
   const insertLetter = db.prepare(`
-    INSERT INTO legacy_letters (
+    INSERT OR REPLACE INTO legacy_letters (
       id, title, recipient, type, content, tone, isApproved, createdAt, updatedAt, associatedItemIds
     ) VALUES (
       @id, @title, @recipient, @type, @content, @tone, @isApproved, @createdAt, @updatedAt, @associatedItemIds

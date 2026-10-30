@@ -193,7 +193,7 @@ export const LettersPage: React.FC = () => {
               Your Written Letters ({letters.length})
             </span>
 
-            <div className="space-y-1.5 max-h-[600px] overflow-y-auto">
+            <div className="space-y-1.5 max-h-[220px] lg:max-h-[600px] overflow-y-auto">
               {letters.map((letter) => {
                 const isSelected = activeLetter?.id === letter.id && !isCreating;
                 return (
