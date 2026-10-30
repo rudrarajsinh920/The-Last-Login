@@ -98,6 +98,7 @@ export const INITIAL_DEMO_ITEMS: InventoryItem[] = [
     localPath: 'data/uploads/private_bereavement_journals.enc',
     contentSnippet: "July 2019: The silence in the hallway is unbearable today. Writing this to empty the knot in my chest, not because anyone else should ever carry these words. When I am gone, let the morning rain wash this away.",
     hash: 'ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d',
+    previewUrl: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&auto=format&fit=crop&q=80',
     importedAt: dateStr(8),
     triageStatus: 'exorcise',
     decisionReason: "These journals served their purpose during my life. They were meant for personal healing, not for my children to hold.",
@@ -143,6 +144,7 @@ export const INITIAL_DEMO_ITEMS: InventoryItem[] = [
     localPath: 'data/uploads/cholula_property_deed_of_trust.pdf',
     contentSnippet: "Notaría Pública No. 14, Cholula, Puebla. Certified land title for Parcel 402B containing 1.8 hectares of agricultural grove and irrigation rights.",
     hash: 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad',
+    previewUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?w=800&auto=format&fit=crop&q=80',
     importedAt: dateStr(5),
     triageStatus: 'release',
     decisionReason: "Required legal documentation for smooth property stewardship transition.",
@@ -346,10 +348,24 @@ class ClientLocalStore {
       const storedLetters = localStorage.getItem(STORAGE_KEY_LETTERS);
       const storedActivity = localStorage.getItem(STORAGE_KEY_ACTIVITY);
 
-      this.items = storedItems ? JSON.parse(storedItems) : [...INITIAL_DEMO_ITEMS];
+      if (storedItems) {
+        const parsed = JSON.parse(storedItems) as InventoryItem[];
+        this.items = parsed.map(item => {
+          if (!item.previewUrl) {
+            const demoMatch = INITIAL_DEMO_ITEMS.find(d => d.id === item.id);
+            if (demoMatch?.previewUrl) {
+              return { ...item, previewUrl: demoMatch.previewUrl };
+            }
+          }
+          return item;
+        });
+      } else {
+        this.items = [...INITIAL_DEMO_ITEMS];
+      }
       this.turns = storedTurns ? JSON.parse(storedTurns) : [...INITIAL_DEMO_TURNS];
       this.letters = storedLetters ? JSON.parse(storedLetters) : [...INITIAL_DEMO_LETTERS];
       this.activity = storedActivity ? JSON.parse(storedActivity) : [...INITIAL_DEMO_ACTIVITY];
+      this.persist();
     } catch {
       this.items = [...INITIAL_DEMO_ITEMS];
       this.turns = [...INITIAL_DEMO_TURNS];

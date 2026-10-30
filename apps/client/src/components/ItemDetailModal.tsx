@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { InventoryItem, TriageStatus } from '@the-last-login/shared';
 import { api } from '../services/api';
+import { ItemThumbnail } from './ItemThumbnail';
 
 interface ItemDetailModalProps {
   item: InventoryItem | null;
@@ -123,15 +124,9 @@ export const ItemDetailModal: React.FC<ItemDetailModalProps> = ({
         {/* Modal Content Scrollable */}
         <div className="p-6 space-y-6 overflow-y-auto">
           {/* Visual Preview */}
-          {item.previewUrl && (
-            <div className="rounded-xl overflow-hidden border border-parchment-300 max-h-64 flex items-center justify-center bg-olive-950">
-              <img
-                src={item.previewUrl}
-                alt={item.title}
-                className="w-full h-full object-cover max-h-64"
-              />
-            </div>
-          )}
+          <div className="w-full">
+            <ItemThumbnail item={item} heightClass="h-56" />
+          </div>
 
           {/* Snippet / Notes */}
           {item.contentSnippet && (

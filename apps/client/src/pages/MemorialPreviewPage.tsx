@@ -17,6 +17,7 @@ import { api } from '../services/api';
 import { clientStore } from '../services/clientStore';
 import { CandleGlow } from '../components/CandleGlow';
 import { PapelPicadoBanner } from '../components/PapelPicadoBanner';
+import { ItemThumbnail } from '../components/ItemThumbnail';
 import { InventoryItem, LegacyLetter, SeanceTurn } from '@the-last-login/shared';
 
 const getInitialMemorial = () => {
@@ -138,13 +139,7 @@ export const MemorialPreviewPage: React.FC = () => {
                   key={item.id}
                   className="rounded-2xl p-4 bg-white/5 border border-white/10 shadow-elevated space-y-3 group hover:border-marigold-400/60 transition-all"
                 >
-                  <div className="overflow-hidden rounded-xl h-60 bg-black flex items-center justify-center border border-white/10">
-                    <img
-                      src={item.previewUrl || 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&auto=format&fit=crop&q=80'}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                    />
-                  </div>
+                  <ItemThumbnail item={item} heightClass="h-60" />
 
                   <div>
                     <h4 className="font-serif text-lg font-bold text-parchment-50 leading-snug">
@@ -232,6 +227,8 @@ export const MemorialPreviewPage: React.FC = () => {
                     <span className="text-xs font-mono text-sage-300">Culinary Heirloom</span>
                   </div>
 
+                  <ItemThumbnail item={item} heightClass="h-44" />
+
                   <h4 className="font-serif text-xl font-bold text-parchment-50">
                     {item.title}
                   </h4>
@@ -297,6 +294,7 @@ export const MemorialPreviewPage: React.FC = () => {
                       <span className="font-semibold text-sm text-parchment-50">{item.title}</span>
                       <span className="text-[10px] font-mono text-marigold-400">Open Source Handover</span>
                     </div>
+                    <ItemThumbnail item={item} heightClass="h-32" />
                     <p className="text-xs text-parchment-300 leading-relaxed">{item.description}</p>
                     {item.contentSnippet && (
                       <pre className="p-2.5 rounded-lg bg-black/50 text-[11px] font-mono text-sage-300 overflow-x-auto border border-white/10">

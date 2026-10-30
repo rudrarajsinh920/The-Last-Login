@@ -19,43 +19,36 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   return (
     <header className="bg-parchment-100/90 backdrop-blur-md border-b border-parchment-300 px-4 sm:px-8 py-3.5 flex items-center justify-between sticky top-0 z-30">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         {onToggleMobileMenu && (
           <button
             onClick={onToggleMobileMenu}
-            className="md:hidden p-2 rounded-xl text-olive-800 hover:bg-parchment-300 transition-colors"
+            className="md:hidden p-2 rounded-xl text-olive-800 hover:bg-parchment-300 transition-colors shrink-0"
             aria-label="Open Navigation Menu"
           >
             <Menu className="w-5 h-5" />
           </button>
         )}
 
-        <div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <h1 className="font-serif text-xl sm:text-2xl font-semibold text-olive-900 tracking-tight">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <h1 className="font-serif text-xl sm:text-2xl font-semibold text-olive-900 tracking-tight truncate">
               {title}
             </h1>
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-sage-200/70 text-olive-800 border border-sage-300">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-sage-200/70 text-olive-800 border border-sage-300 shrink-0">
               <span className="w-1.5 h-1.5 rounded-full bg-sage-600"></span>
               Private Local Mode
             </span>
           </div>
           {subtitle && (
-            <p className="text-xs text-olive-700/80 mt-0.5 font-sans hidden sm:block">
+            <p className="text-xs text-olive-700/80 mt-0.5 font-sans hidden sm:block truncate">
               {subtitle}
             </p>
           )}
         </div>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-        <div className="hidden lg:flex items-center gap-3 pr-4 border-r border-parchment-300">
-          <CandleGlow size="sm" active={true} />
-          <span className="text-xs text-olive-800 font-serif italic">
-            "Your memories. Your wishes. Your control."
-          </span>
-        </div>
-
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-4">
         {onOpenImport && (
           <button
             onClick={onOpenImport}

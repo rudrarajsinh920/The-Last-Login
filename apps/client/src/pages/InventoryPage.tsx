@@ -21,6 +21,7 @@ import { api } from '../services/api';
 import { clientStore } from '../services/clientStore';
 import { InventoryItem, ItemCategory, TriageStatus } from '@the-last-login/shared';
 import { ItemDetailModal } from '../components/ItemDetailModal';
+import { ItemThumbnail } from '../components/ItemThumbnail';
 
 interface InventoryPageProps {
   onOpenImport: () => void;
@@ -234,16 +235,10 @@ export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOp
                     {getStatusBadge(item.triageStatus, item.isPendingExorcism)}
                   </div>
 
-                  {/* Thumbnail if present */}
-                  {item.previewUrl && (
-                    <div className="mb-3 rounded-xl overflow-hidden h-36 bg-olive-950 flex items-center justify-center border border-parchment-300">
-                      <img
-                        src={item.previewUrl}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
-                      />
-                    </div>
-                  )}
+                  {/* Item Visual Thumbnail */}
+                  <div className="mb-3">
+                    <ItemThumbnail item={item} heightClass="h-40" />
+                  </div>
 
                   {/* Title & Description */}
                   <h3 className="font-serif font-bold text-lg text-olive-900 group-hover:text-olive-950 leading-snug mb-1.5">
