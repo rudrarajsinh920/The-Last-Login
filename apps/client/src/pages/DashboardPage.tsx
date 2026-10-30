@@ -23,15 +23,17 @@ import { DashboardMetrics, ActivityLogEntry } from '@the-last-login/shared';
 import { CandleGlow } from '../components/CandleGlow';
 import { OnboardingModal } from '../components/OnboardingModal';
 
+import { clientStore } from '../services/clientStore';
+
 interface DashboardPageProps {
   navigate: (route: string) => void;
   onOpenImport: () => void;
 }
 
 export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenImport }) => {
-  const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
-  const [activity, setActivity] = useState<ActivityLogEntry[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [metrics, setMetrics] = useState<DashboardMetrics>(() => clientStore.getMetrics());
+  const [activity, setActivity] = useState<ActivityLogEntry[]>(() => clientStore.getActivity());
+  const [loading, setLoading] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
 
   useEffect(() => {
@@ -39,16 +41,17 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
   }, []);
 
   const loadDashboard = async () => {
-    setLoading(true);
     try {
       const [m, a] = await Promise.all([
         api.getMetrics(),
         api.getActivity()
       ]);
-      setMetrics(m);
-      setActivity(a);
+      if (m) setMetrics(m);
+      if (a) setActivity(a);
     } catch (e) {
-      console.error(e);
+      console.error('Local dashboard sync:', e);
+      setMetrics(clientStore.getMetrics());
+      setActivity(clientStore.getActivity());
     } finally {
       setLoading(false);
     }
@@ -56,21 +59,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
 
   const handleReloadDemo = async () => {
     await api.loadMarisolDemo();
+    setMetrics(clientStore.getMetrics());
+    setActivity(clientStore.getActivity());
     await loadDashboard();
   };
-
-  if (loading || !metrics) {
-    return (
-      <div className="flex-1 p-8 flex items-center justify-center">
-        <div className="text-center space-y-3">
-          <CandleGlow size="lg" active={true} />
-          <p className="text-sm font-serif italic text-olive-800">
-            Gathering memories into the digital ofrenda...
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex-1 p-8 max-w-7xl mx-auto space-y-8 animate-fade-in">

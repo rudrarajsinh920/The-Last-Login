@@ -14,22 +14,24 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { api } from '../services/api';
+import { clientStore } from '../services/clientStore';
 import { LegacyLetter, LetterTone, LetterType } from '@the-last-login/shared';
 
 export const LettersPage: React.FC = () => {
-  const [letters, setLetters] = useState<LegacyLetter[]>([]);
-  const [activeLetter, setActiveLetter] = useState<LegacyLetter | null>(null);
+  const initialList = clientStore.getLetters();
+  const [letters, setLetters] = useState<LegacyLetter[]>(() => initialList);
+  const [activeLetter, setActiveLetter] = useState<LegacyLetter | null>(() => initialList[0] || null);
   const [isCreating, setIsCreating] = useState(false);
   const [isAssisting, setIsAssisting] = useState(false);
   const [aiNotes, setAiNotes] = useState<string | null>(null);
   const [previewMode, setPreviewMode] = useState(false);
 
   // Form states
-  const [title, setTitle] = useState('');
-  const [recipient, setRecipient] = useState('');
-  const [type, setType] = useState<LetterType>('personal');
-  const [tone, setTone] = useState<LetterTone>('reflective');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState(() => initialList[0]?.title || '');
+  const [recipient, setRecipient] = useState(() => initialList[0]?.recipient || '');
+  const [type, setType] = useState<LetterType>(() => initialList[0]?.type || 'personal');
+  const [tone, setTone] = useState<LetterTone>(() => initialList[0]?.tone || 'reflective');
+  const [content, setContent] = useState(() => initialList[0]?.content || '');
 
   useEffect(() => {
     loadLetters();

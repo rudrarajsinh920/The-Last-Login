@@ -18,6 +18,7 @@ import {
   HardDrive
 } from 'lucide-react';
 import { api } from '../services/api';
+import { clientStore } from '../services/clientStore';
 import { InventoryItem, ItemCategory, TriageStatus } from '@the-last-login/shared';
 import { ItemDetailModal } from '../components/ItemDetailModal';
 
@@ -27,12 +28,12 @@ interface InventoryPageProps {
 }
 
 export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOpenSeanceForItem }) => {
-  const [items, setItems] = useState<InventoryItem[]>([]);
+  const [items, setItems] = useState<InventoryItem[]>(() => clientStore.getInventory());
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadInventory();

@@ -13,15 +13,16 @@ import {
   FolderArchive
 } from 'lucide-react';
 import { api } from '../services/api';
+import { clientStore } from '../services/clientStore';
 import { InventoryItem, TriageStatus } from '@the-last-login/shared';
 
 export const DecisionsPage: React.FC = () => {
-  const [items, setItems] = useState<InventoryItem[]>([]);
+  const [items, setItems] = useState<InventoryItem[]>(() => clientStore.getInventory());
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'unassigned' | 'keep' | 'release' | 'exorcise'>('all');
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
   const [editReason, setEditReason] = useState('');
   const [editRecipient, setEditRecipient] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadItems();

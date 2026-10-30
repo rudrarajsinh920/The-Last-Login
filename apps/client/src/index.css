@@ -73,6 +73,31 @@
   background: #18251F;
 }
 
+/* Suppress any injected floating toolbars/overlays from hosting platforms */
+vercel-live-feedback,
+[data-vercel-toolbar],
+#__vercel-toolbar,
+div[class*="vercel-toolbar"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Fast and smooth scrolling without scrollbars on mobile pills */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth layout transitions */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;

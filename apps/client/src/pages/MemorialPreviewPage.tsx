@@ -14,13 +14,35 @@ import {
   Lock
 } from 'lucide-react';
 import { api } from '../services/api';
+import { clientStore } from '../services/clientStore';
 import { CandleGlow } from '../components/CandleGlow';
 import { PapelPicadoBanner } from '../components/PapelPicadoBanner';
 import { InventoryItem, LegacyLetter, SeanceTurn } from '@the-last-login/shared';
 
+const getInitialMemorial = () => {
+  const mem = clientStore.getMemorialItems();
+  return {
+    ownerName: 'Marisol Hernandez',
+    tagline: 'A life rooted in family, flora, and shared memories.',
+    totalPreservedItems: mem.items.length,
+    totalLetters: mem.letters.length,
+    totalReflections: mem.turns.length,
+    sections: {
+      photos: mem.items.filter(i => i.category === 'photos'),
+      recipes: mem.items.filter(i => i.category === 'recipes'),
+      audio: mem.items.filter(i => i.category === 'audio'),
+      creative: mem.items.filter(i => i.category === 'creative'),
+      stories: mem.items.filter(i => i.category === 'stories'),
+      documents: mem.items.filter(i => i.category === 'documents')
+    },
+    letters: mem.letters,
+    reflections: mem.turns
+  };
+};
+
 export const MemorialPreviewPage: React.FC = () => {
-  const [memorial, setMemorial] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [memorial, setMemorial] = useState<any>(() => getInitialMemorial());
+  const [loading, setLoading] = useState(false);
   const [candleMode, setCandleMode] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState<InventoryItem | null>(null);
 
@@ -29,12 +51,12 @@ export const MemorialPreviewPage: React.FC = () => {
   }, []);
 
   const loadMemorial = async () => {
-    setLoading(true);
     try {
       const data = await api.getMemorial();
-      setMemorial(data);
+      if (data) setMemorial(data);
     } catch (e) {
       console.error(e);
+      setMemorial(getInitialMemorial());
     } finally {
       setLoading(false);
     }

@@ -45,7 +45,7 @@ export const SettingsPage: React.FC = () => {
   const handleTestAI = async () => {
     setIsTesting(true);
     try {
-      const status = await api.testAI();
+      const status = await api.testAi();
       setAiStatus(status);
     } catch (e) {
       alert('Failed to connect to local AI endpoint');
@@ -63,7 +63,9 @@ export const SettingsPage: React.FC = () => {
         ollamaEndpoint: endpoint,
         ollamaModel: model,
         enableLocalHeuristics: enableHeuristics,
-        ownerName: ownerName
+        ownerName: ownerName,
+        encryptionHint: 'Family secret / Abuela birthday year',
+        theme: 'parchment'
       });
       setSaveMessage('Preferences updated successfully.');
       setTimeout(() => setSaveMessage(null), 3000);

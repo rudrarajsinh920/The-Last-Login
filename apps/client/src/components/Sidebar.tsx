@@ -11,9 +11,11 @@ import {
   ChevronRight,
   Database,
   Cpu,
-  RefreshCw
+  RefreshCw,
+  X
 } from 'lucide-react';
 import { api } from '../services/api';
+import { clientStore } from '../services/clientStore';
 
 interface SidebarProps {
   currentRoute: string;
@@ -24,8 +26,8 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefreshMetrics, isOpen = false, onClose }) => {
-  const [readiness, setReadiness] = useState<number>(0);
-  const [aiStatus, setAiStatus] = useState<string>('Checking...');
+  const [readiness, setReadiness] = useState<number>(() => clientStore.getMetrics().archiveStatusPercent);
+  const [aiStatus, setAiStatus] = useState<string>('Local Heuristics');
   const [isDemo, setIsDemo] = useState(true);
 
   useEffect(() => {
@@ -87,12 +89,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefr
       }`}>
         {/* Brand Header */}
         <div>
-          <div 
-            onClick={() => handleNavClick('/')} 
-            className="p-6 cursor-pointer border-b border-olive-800/80 hover:bg-olive-800/30 transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-marigold-500 to-terracotta-500 flex items-center justify-center shadow-glow-marigold">
+          <div className="p-5 border-b border-olive-800/80 flex items-center justify-between">
+            <div 
+              onClick={() => handleNavClick('/')} 
+              className="flex items-center gap-3 cursor-pointer group"
+            >
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-marigold-500 to-terracotta-500 flex items-center justify-center shadow-glow-marigold group-hover:scale-105 transition-transform">
                 <Flame className="w-5 h-5 text-parchment-50" />
               </div>
               <div>
@@ -104,6 +106,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefr
                 </p>
               </div>
             </div>
+
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="md:hidden p-1.5 rounded-lg text-sage-400 hover:text-parchment-100 hover:bg-olive-800 transition-colors"
+                aria-label="Close navigation"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
           </div>
 
           {/* Navigation list */}

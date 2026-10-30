@@ -14,6 +14,7 @@ import {
   Plus
 } from 'lucide-react';
 import { api } from '../services/api';
+import { clientStore } from '../services/clientStore';
 import { SeanceTurn, InventoryItem } from '@the-last-login/shared';
 import { CandleGlow } from '../components/CandleGlow';
 
@@ -22,8 +23,8 @@ interface SeancePageProps {
 }
 
 export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
-  const [turns, setTurns] = useState<SeanceTurn[]>([]);
-  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [turns, setTurns] = useState<SeanceTurn[]>(() => clientStore.getSeanceTurns());
+  const [inventory, setInventory] = useState<InventoryItem[]>(() => clientStore.getInventory());
   const [activeTurn, setActiveTurn] = useState<SeanceTurn | null>(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,19 +42,18 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
         api.getSeanceTurns(),
         api.getInventory()
       ]);
-      setTurns(tList);
-      setInventory(iList);
+      if (tList && tList.length > 0) setTurns(tList);
+      if (iList && iList.length > 0) setInventory(iList);
 
-      // Check if there is an unanswered, non-skipped turn
-      const unanswered = tList.find(t => !t.isSkipped && (!t.userAnswer || t.userAnswer.trim() === ''));
+      const currentList = (tList && tList.length > 0) ? tList : clientStore.getSeanceTurns();
+      const unanswered = currentList.find(t => !t.isSkipped && (!t.userAnswer || t.userAnswer.trim() === ''));
       if (unanswered) {
         setActiveTurn(unanswered);
-      } else if (tList.length === 0) {
-        // Automatically ask first question
-        await handleAskNewQuestion();
       }
     } catch (e) {
-      console.error(e);
+      console.error('Seance load error, using local store:', e);
+      setTurns(clientStore.getSeanceTurns());
+      setInventory(clientStore.getInventory());
     }
   };
 
@@ -63,8 +63,11 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
       setTurns(prev => [...prev, turn]);
       setActiveTurn(turn);
       setUserAnswer('');
-    } catch (e) {
-      alert('Failed to generate interview question');
+    } catch {
+      const fallbackTurn = clientStore.askSeanceQuestion(specificItemId || selectedItemId || undefined);
+      setTurns(prev => [...prev, fallbackTurn]);
+      setActiveTurn(fallbackTurn);
+      setUserAnswer('');
     }
   };
 
@@ -78,8 +81,11 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
       setTurns(prev => prev.map(t => t.id === updated.id ? updated : t));
       setUserAnswer('');
       setActiveTurn(null);
-    } catch (e) {
-      alert('Failed to save reflection');
+    } catch {
+      const updated = clientStore.answerSeanceQuestion(activeTurn.id, userAnswer.trim());
+      setTurns(prev => prev.map(t => t.id === updated.id ? updated : t));
+      setUserAnswer('');
+      setActiveTurn(null);
     } finally {
       setIsSubmitting(false);
     }
@@ -88,12 +94,12 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
   const handleSkipQuestion = async (turnId: string) => {
     try {
       await api.skipSeanceQuestion(turnId);
-      setTurns(prev => prev.map(t => t.id === turnId ? { ...t, isSkipped: true } : t));
-      if (activeTurn?.id === turnId) {
-        setActiveTurn(null);
-      }
-    } catch (e) {
-      alert('Failed to skip question');
+    } catch {
+      clientStore.skipSeanceQuestion(turnId);
+    }
+    setTurns(prev => prev.map(t => t.id === turnId ? { ...t, isSkipped: true } : t));
+    if (activeTurn?.id === turnId) {
+      setActiveTurn(null);
     }
   };
 
@@ -105,22 +111,22 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
   const handleSaveEdit = async (turnId: string) => {
     try {
       await api.editSeanceAnswer(turnId, editText);
-      setTurns(prev => prev.map(t => t.id === turnId ? { ...t, userAnswer: editText } : t));
-      setEditingTurnId(null);
-    } catch (e) {
-      alert('Failed to edit answer');
+    } catch {
+      clientStore.editSeanceAnswer(turnId, editText);
     }
+    setTurns(prev => prev.map(t => t.id === turnId ? { ...t, userAnswer: editText } : t));
+    setEditingTurnId(null);
   };
 
   const handleDeleteTurn = async (turnId: string) => {
     if (confirm('Delete this interview reflection?')) {
       try {
         await api.deleteSeanceTurn(turnId);
-        setTurns(prev => prev.filter(t => t.id !== turnId));
-        if (activeTurn?.id === turnId) setActiveTurn(null);
-      } catch (e) {
-        alert('Failed to delete');
+      } catch {
+        clientStore.deleteSeanceTurn(turnId);
       }
+      setTurns(prev => prev.filter(t => t.id !== turnId));
+      if (activeTurn?.id === turnId) setActiveTurn(null);
     }
   };
 
