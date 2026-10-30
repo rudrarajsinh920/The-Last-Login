@@ -20,10 +20,19 @@ import { api } from '../services/api';
 
 interface LandingPageProps {
   navigate: (route: string) => void;
+  onOpenOnboarding?: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
+export const LandingPage: React.FC<LandingPageProps> = ({ navigate, onOpenOnboarding }) => {
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+
+  const handleOpenTour = () => {
+    if (onOpenOnboarding) {
+      onOpenOnboarding();
+    } else {
+      setIsOnboardingOpen(true);
+    }
+  };
 
   const handleLoadDemoAndEnter = async () => {
     try {
@@ -59,7 +68,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
-              onClick={() => setIsOnboardingOpen(true)}
+              onClick={handleOpenTour}
               className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-olive-800 hover:text-olive-950 bg-parchment-100 hover:bg-parchment-300 border border-parchment-300 rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-marigold-500"
             >
               <Compass className="w-3.5 h-3.5 text-marigold-600" />
@@ -128,7 +137,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
               </button>
 
               <button
-                onClick={() => setIsOnboardingOpen(true)}
+                onClick={handleOpenTour}
                 className="flex items-center gap-2 px-5 py-3.5 bg-olive-800 hover:bg-olive-700 text-parchment-100 rounded-xl font-medium text-sm border border-olive-700 transition-colors"
               >
                 <Compass className="w-4 h-4 text-marigold-400" />

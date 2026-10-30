@@ -4,6 +4,7 @@ import { FriendlyGhost } from './FriendlyGhost';
 
 interface GlobalGhostCompanionProps {
   currentRoute: string;
+  onOpenOnboarding?: () => void;
 }
 
 const COMFORT_THOUGHTS = [
@@ -14,7 +15,7 @@ const COMFORT_THOUGHTS = [
   'Preserving the love, wisdom, and recipes.'
 ];
 
-export const GlobalGhostCompanion: React.FC<GlobalGhostCompanionProps> = ({ currentRoute }) => {
+export const GlobalGhostCompanion: React.FC<GlobalGhostCompanionProps> = ({ currentRoute, onOpenOnboarding }) => {
   const { state, message, ghostCelebrating } = useGhost();
   const [clickCount, setClickCount] = useState(0);
 
@@ -24,6 +25,16 @@ export const GlobalGhostCompanion: React.FC<GlobalGhostCompanionProps> = ({ curr
   }
 
   const handleClick = () => {
+    // Every 5th click, offer to open the onboarding tour if available
+    if (clickCount > 0 && clickCount % 5 === 4 && onOpenOnboarding) {
+      setClickCount(prev => prev + 1);
+      ghostCelebrating('Need a refresher? Reopening Onboarding Guide...');
+      setTimeout(() => {
+        onOpenOnboarding();
+      }, 900);
+      return;
+    }
+
     const nextMsg = COMFORT_THOUGHTS[clickCount % COMFORT_THOUGHTS.length];
     setClickCount(prev => prev + 1);
     ghostCelebrating(nextMsg);

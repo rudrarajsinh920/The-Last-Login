@@ -9,12 +9,17 @@ import {
   AlertTriangle,
   Server,
   KeyRound,
-  ExternalLink
+  ExternalLink,
+  Compass
 } from 'lucide-react';
 import { api } from '../services/api';
 import { useGhost } from '../context/GhostContext';
 
-export const SettingsPage: React.FC = () => {
+interface SettingsPageProps {
+  onOpenOnboarding?: () => void;
+}
+
+export const SettingsPage: React.FC<SettingsPageProps> = ({ onOpenOnboarding }) => {
   const [endpoint, setEndpoint] = useState('http://localhost:11434');
   const [model, setModel] = useState('gemma2:latest');
   const [enableHeuristics, setEnableHeuristics] = useState(true);
@@ -262,6 +267,16 @@ export const SettingsPage: React.FC = () => {
         </p>
 
         <div className="flex flex-wrap items-center gap-3 pt-2">
+          {onOpenOnboarding && (
+            <button
+              onClick={onOpenOnboarding}
+              className="flex items-center gap-2 px-4 py-2 bg-olive-900 hover:bg-olive-800 text-parchment-100 rounded-xl text-xs font-semibold shadow-sm transition-all hover:shadow-glow-marigold"
+            >
+              <Compass className="w-4 h-4 text-marigold-400" />
+              <span>Replay Onboarding Guide</span>
+            </button>
+          )}
+
           <button
             onClick={handleReloadDemo}
             className="flex items-center gap-2 px-4 py-2 bg-parchment-200 hover:bg-parchment-300 text-olive-900 border border-parchment-300 rounded-xl text-xs font-semibold transition-colors"

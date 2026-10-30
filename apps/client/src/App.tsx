@@ -13,6 +13,7 @@ import { LettersPage } from './pages/LettersPage';
 import { SealedOfrendaPage } from './pages/SealedOfrendaPage';
 import { MemorialPreviewPage } from './pages/MemorialPreviewPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { OnboardingModal, ONBOARDING_COMPLETED_KEY } from './components/OnboardingModal';
 
 const AppInner: React.FC = () => {
   const [currentRoute, setCurrentRoute] = useState<string>(() => {
@@ -25,7 +26,21 @@ const AppInner: React.FC = () => {
   const [seanceItemId, setSeanceItemId] = useState<string | undefined>(undefined);
   const [metricsKey, setMetricsKey] = useState(0);
 
-  const { ghostAcknowledge, ghostHappy, ghostThinking } = useGhost();
+  // First-time visitor check: auto-show onboarding if not yet completed
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem(ONBOARDING_COMPLETED_KEY) !== 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const { ghostAcknowledge, ghostHappy, ghostThinking, ghostWelcoming } = useGhost();
+
+  const handleOpenOnboarding = () => {
+    ghostWelcoming('Welcome to the Digital Ofrenda Guide');
+    setIsOnboardingOpen(true);
+  };
 
   useEffect(() => {
     const handlePopState = () => {
@@ -73,8 +88,23 @@ const AppInner: React.FC = () => {
   if (currentRoute === '/') {
     return (
       <>
-        <LandingPage navigate={navigate} />
-        <GlobalGhostCompanion currentRoute={currentRoute} />
+        <LandingPage
+          navigate={navigate}
+          onOpenOnboarding={handleOpenOnboarding}
+        />
+        <GlobalGhostCompanion
+          currentRoute={currentRoute}
+          onOpenOnboarding={handleOpenOnboarding}
+        />
+        <OnboardingModal
+          isOpen={isOnboardingOpen}
+          onClose={() => setIsOnboardingOpen(false)}
+          onComplete={() => {
+            setIsOnboardingOpen(false);
+            navigate('/dashboard');
+          }}
+          onItemCreated={handleRefreshMetrics}
+        />
       </>
     );
   }
@@ -112,6 +142,7 @@ const AppInner: React.FC = () => {
         currentRoute={currentRoute}
         navigate={navigate}
         onRefreshMetrics={handleRefreshMetrics}
+        onOpenOnboarding={handleOpenOnboarding}
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />
@@ -141,6 +172,7 @@ const AppInner: React.FC = () => {
                 ghostHappy('Adding memory to inventory');
                 setIsImportOpen(true);
               }}
+              onOpenOnboarding={handleOpenOnboarding}
             />
           )}
           {currentRoute === '/inventory' && (
@@ -168,13 +200,26 @@ const AppInner: React.FC = () => {
             <MemorialPreviewPage />
           )}
           {currentRoute === '/settings' && (
-            <SettingsPage />
+            <SettingsPage
+              onOpenOnboarding={handleOpenOnboarding}
+            />
           )}
         </main>
       </div>
 
       {/* Global Interactive Ghost Companion */}
-      <GlobalGhostCompanion currentRoute={currentRoute} />
+      <GlobalGhostCompanion
+        currentRoute={currentRoute}
+        onOpenOnboarding={handleOpenOnboarding}
+      />
+
+      {/* Central Onboarding Guide Modal */}
+      <OnboardingModal
+        isOpen={isOnboardingOpen}
+        onClose={() => setIsOnboardingOpen(false)}
+        onComplete={() => setIsOnboardingOpen(false)}
+        onItemCreated={handleRefreshMetrics}
+      />
 
       {/* File Import Modal */}
       <FileImportModal

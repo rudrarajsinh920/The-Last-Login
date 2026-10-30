@@ -28,13 +28,22 @@ import { clientStore } from '../services/clientStore';
 interface DashboardPageProps {
   navigate: (route: string) => void;
   onOpenImport: () => void;
+  onOpenOnboarding?: () => void;
 }
 
-export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenImport }) => {
+export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenImport, onOpenOnboarding }) => {
   const [metrics, setMetrics] = useState<DashboardMetrics>(() => clientStore.getMetrics());
   const [activity, setActivity] = useState<ActivityLogEntry[]>(() => clientStore.getActivity());
   const [loading, setLoading] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+
+  const handleOpenTour = () => {
+    if (onOpenOnboarding) {
+      onOpenOnboarding();
+    } else {
+      setIsOnboardingOpen(true);
+    }
+  };
 
   useEffect(() => {
     loadDashboard();
@@ -108,7 +117,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
             </button>
 
             <button
-              onClick={() => setIsOnboardingOpen(true)}
+              onClick={handleOpenTour}
               className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-olive-800 hover:bg-olive-700 text-parchment-100 rounded-xl text-xs sm:text-sm font-medium border border-olive-700 transition-colors"
             >
               <Compass className="w-4 h-4 text-marigold-400" />

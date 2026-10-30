@@ -12,7 +12,8 @@ import {
   Database,
   Cpu,
   RefreshCw,
-  X
+  X,
+  Compass
 } from 'lucide-react';
 import { api } from '../services/api';
 import { clientStore } from '../services/clientStore';
@@ -21,11 +22,19 @@ interface SidebarProps {
   currentRoute: string;
   navigate: (route: string) => void;
   onRefreshMetrics?: () => void;
+  onOpenOnboarding?: () => void;
   isOpen?: boolean;
   onClose?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefreshMetrics, isOpen = false, onClose }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  currentRoute,
+  navigate,
+  onRefreshMetrics,
+  onOpenOnboarding,
+  isOpen = false,
+  onClose
+}) => {
   const [readiness, setReadiness] = useState<number>(() => clientStore.getMetrics().archiveStatusPercent);
   const [aiStatus, setAiStatus] = useState<string>('Local Heuristics');
   const [isDemo, setIsDemo] = useState(true);
@@ -194,13 +203,25 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentRoute, navigate, onRefr
             </div>
           </div>
 
-          <button
-            onClick={handleReset}
-            title="Reload fictional demo data"
-            className="p-1.5 rounded-lg text-sage-300 hover:text-parchment-50 hover:bg-olive-800 transition-colors"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-1">
+            {onOpenOnboarding && (
+              <button
+                onClick={onOpenOnboarding}
+                title="Open Onboarding Guide"
+                className="p-1.5 rounded-lg text-sage-300 hover:text-marigold-400 hover:bg-olive-800 transition-colors"
+              >
+                <Compass className="w-3.5 h-3.5" />
+              </button>
+            )}
+
+            <button
+              onClick={handleReset}
+              title="Reload fictional demo data"
+              className="p-1.5 rounded-lg text-sage-300 hover:text-parchment-50 hover:bg-olive-800 transition-colors"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
     </aside>
