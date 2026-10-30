@@ -3,8 +3,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "apps/client/dist",
   "framework": "vite",
-  "enablePreviewFeedback": false,
-  "enableProductionFeedback": false,
   "rewrites": [
     {
       "source": "/((?!assets/|favicon.svg|.*\\..*).*)",
