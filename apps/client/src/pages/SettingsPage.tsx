@@ -91,13 +91,13 @@ export const SettingsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 p-8 max-w-5xl mx-auto space-y-8 animate-fade-in">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-5xl mx-auto min-w-0 space-y-6 sm:space-y-8 animate-fade-in">
       {/* Title */}
       <div>
-        <h2 className="font-serif text-3xl font-bold text-olive-900 tracking-tight">
+        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-olive-900 tracking-tight">
           Settings & Privacy
         </h2>
-        <p className="text-xs text-olive-700 mt-1">
+        <p className="text-xs sm:text-sm text-olive-700 mt-1">
           Configure local AI inference, verify zero-cloud guarantees, and manage estate workspaces.
         </p>
       </div>

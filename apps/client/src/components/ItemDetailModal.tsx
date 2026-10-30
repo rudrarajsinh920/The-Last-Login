@@ -98,16 +98,16 @@ export const ItemDetailModal: React.FC<ItemDetailModalProps> = ({
     >
       <div className="bg-parchment-100 border border-parchment-300 w-full max-w-2xl rounded-2xl shadow-elevated overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="px-5 sm:px-6 py-4 bg-parchment-200 border-b border-parchment-300 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-sage-200 text-olive-900 flex items-center justify-center border border-sage-300">
-              <CategoryIcon className="w-5 h-5 text-olive-800" />
+        <div className="px-4 sm:px-6 py-3.5 sm:py-4 bg-parchment-200 border-b border-parchment-300 flex items-center justify-between gap-3 shrink-0">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-sage-200 text-olive-900 flex items-center justify-center border border-sage-300 shrink-0">
+              <CategoryIcon className="w-4 h-4 sm:w-5 sm:h-5 text-olive-800" />
             </div>
-            <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-sage-600 font-semibold">
+            <div className="min-w-0 flex-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-sage-600 font-semibold block">
                 {item.category}
               </span>
-              <h3 id="item-detail-title" className="font-serif text-xl font-bold text-olive-900 leading-tight">
+              <h3 id="item-detail-title" className="font-serif text-lg sm:text-xl font-bold text-olive-900 leading-tight truncate">
                 {item.title}
               </h3>
             </div>
@@ -115,7 +115,7 @@ export const ItemDetailModal: React.FC<ItemDetailModalProps> = ({
           <button
             onClick={onClose}
             aria-label="Close details"
-            className="p-1.5 rounded-lg text-olive-600 hover:text-olive-900 hover:bg-parchment-300 transition-colors focus-visible:ring-2 focus-visible:ring-marigold-500"
+            className="p-1.5 rounded-lg text-olive-600 hover:text-olive-900 hover:bg-parchment-300 transition-colors focus-visible:ring-2 focus-visible:ring-marigold-500 shrink-0"
           >
             <X className="w-5 h-5" />
           </button>

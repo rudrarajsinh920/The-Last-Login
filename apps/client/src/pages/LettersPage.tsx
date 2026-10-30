@@ -163,21 +163,21 @@ export const LettersPage: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 p-8 max-w-7xl mx-auto space-y-6 animate-fade-in">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-7xl mx-auto min-w-0 space-y-5 sm:space-y-6 animate-fade-in">
       {/* Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="font-serif text-3xl font-bold text-olive-900 tracking-tight">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-olive-900 tracking-tight">
             Legacy Letters
           </h2>
-          <p className="text-xs text-olive-700 mt-1">
+          <p className="text-xs sm:text-sm text-olive-700 mt-1">
             Compassionate writing workspace. AI assists with drafts; only user-approved letters enter the sealed archive.
           </p>
         </div>
 
         <button
           onClick={handleStartNew}
-          className="flex items-center gap-2 px-4 py-2 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-xs font-semibold shadow-md transition-all self-start md:self-auto"
+          className="flex items-center gap-2 px-4 py-2 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-xs font-semibold shadow-md transition-all self-start sm:self-auto shrink-0"
         >
           <Plus className="w-4 h-4 text-marigold-400" />
           <span>New Letter Draft</span>
@@ -185,7 +185,7 @@ export const LettersPage: React.FC = () => {
       </div>
 
       {/* Main Workspace Layout (Sidebar + Editor) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start w-full min-w-0">
         {/* Left Column: Drafts List (4 Cols) */}
         <div className="lg:col-span-4 space-y-3">
           <div className="rounded-2xl bg-parchment-100 border border-parchment-300 p-4 shadow-soft-card space-y-2">

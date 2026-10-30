@@ -95,20 +95,20 @@ export const DecisionsPage: React.FC = () => {
   });
 
   return (
-    <div className="flex-1 p-8 max-w-7xl mx-auto space-y-8 animate-fade-in">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-7xl mx-auto min-w-0 space-y-6 sm:space-y-8 animate-fade-in">
       {/* Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h2 className="font-serif text-3xl font-bold text-olive-900 tracking-tight">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-olive-900 tracking-tight">
             Keep / Release / Exorcise
           </h2>
-          <p className="text-xs text-olive-700 mt-1">
+          <p className="text-xs sm:text-sm text-olive-700 mt-1">
             Conscious digital triage. AI offers advisory classifications; you have 100% decision authority.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-olive-700">
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-xs font-mono text-olive-700 bg-parchment-100 px-3 py-1.5 rounded-xl border border-parchment-300">
             {unassignedCount} Remaining Unassigned
           </span>
         </div>

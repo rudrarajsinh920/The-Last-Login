@@ -58,6 +58,7 @@ const VIEWPORTS = [
   { name: 'Mobile-430x932',    width: 430,  height: 932,  type: 'mobile' },
   { name: 'Mobile-390x844',    width: 390,  height: 844,  type: 'mobile' },
   { name: 'Mobile-375x812',    width: 375,  height: 812,  type: 'mobile' },
+  { name: 'Mobile-360x800',    width: 360,  height: 800,  type: 'mobile' },
   { name: 'Mobile-320x700',    width: 320,  height: 700,  type: 'mobile' }
 ];
 
@@ -135,6 +136,13 @@ async function main() {
         pass,
         details: audit
       });
+
+      // Capture high-fidelity screenshots for the target validation viewports
+      const targetWidths = [390, 768, 1024, 1440, 1920];
+      if (targetWidths.includes(vp.width) && route === '/inventory') {
+        const screenshotPath = path.join('docs', 'screenshots', `responsive-${vp.width}px-inventory.png`);
+        await page.screenshot({ path: screenshotPath, fullPage: false });
+      }
 
       const icon = pass ? '✓ PASS' : '✗ FAIL';
       if (!pass) {

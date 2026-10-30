@@ -112,71 +112,67 @@ export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOp
   };
 
   return (
-    <div className="flex-1 p-8 max-w-7xl mx-auto space-y-6 animate-fade-in">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-7xl mx-auto min-w-0 space-y-5 sm:space-y-6 animate-fade-in">
       {/* Page Title & Local Storage Guarantee */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="font-serif text-3xl font-bold text-olive-900 tracking-tight">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-olive-900 tracking-tight">
             Life Inventory
           </h2>
-          <p className="text-xs text-olive-700 mt-1">
+          <p className="text-xs sm:text-sm text-olive-700 mt-0.5">
             Explicitly cataloged possessions. Stored entirely on your local machine with cryptographic integrity hashes.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-parchment-100 border border-parchment-300 text-xs font-mono text-olive-800">
-            <HardDrive className="w-4 h-4 text-sage-600" />
+        <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-parchment-100 border border-parchment-300 text-xs font-mono text-olive-800">
+            <HardDrive className="w-3.5 h-3.5 text-sage-600" />
             <span>Local Storage: 100% Offline</span>
           </div>
-
-          <button
-            onClick={onOpenImport}
-            className="flex items-center gap-2 px-4 py-2 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-sm font-medium shadow-md transition-all active:scale-98 hover:shadow-glow-marigold"
-          >
-            <Plus className="w-4 h-4 text-marigold-400" />
-            <span>Add Item</span>
-          </button>
         </div>
       </div>
 
-      {/* Category Pills Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-        {categories.map((c) => {
-          const Icon = c.icon;
-          const isSelected = selectedCategory === c.id;
-          return (
-            <button
-              key={c.id}
-              onClick={() => setSelectedCategory(c.id)}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
-                isSelected
-                  ? 'bg-olive-900 text-parchment-50 shadow-sm font-semibold'
-                  : 'bg-parchment-100 text-olive-800 hover:bg-parchment-300 border border-parchment-300'
-              }`}
-            >
-              <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-marigold-400' : 'text-sage-600'}`} />
-              <span>{c.label}</span>
-            </button>
-          );
-        })}
+      {/* Category Pills Bar with Touch-Friendly Scroll Cue */}
+      <div className="relative w-full min-w-0">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1.5 scrollbar-none touch-pan-x pr-6 sm:pr-0">
+          {categories.map((c) => {
+            const Icon = c.icon;
+            const isSelected = selectedCategory === c.id;
+            return (
+              <button
+                key={c.id}
+                onClick={() => setSelectedCategory(c.id)}
+                className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all shrink-0 min-h-[38px] ${
+                  isSelected
+                    ? 'bg-olive-900 text-parchment-50 shadow-sm font-semibold'
+                    : 'bg-parchment-100 text-olive-800 hover:bg-parchment-300 border border-parchment-300'
+                }`}
+              >
+                <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-marigold-400' : 'text-sage-600'}`} />
+                <span>{c.label}</span>
+              </button>
+            );
+          })}
+        </div>
+        {/* Soft edge scroll fade on mobile */}
+        <div className="pointer-events-none absolute right-0 top-0 bottom-1.5 w-8 bg-gradient-to-l from-parchment-200 to-transparent sm:hidden" />
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-2xl bg-parchment-100 border border-parchment-300 shadow-soft-card flex flex-col md:flex-row gap-4 items-center justify-between">
-        <div className="relative w-full md:w-80">
-          <Search className="w-4 h-4 text-olive-500 absolute left-3.5 top-3" />
+      <div className="p-3 sm:p-4 rounded-2xl bg-parchment-100 border border-parchment-300 shadow-soft-card flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-between w-full min-w-0">
+        <div className="relative flex-1 min-w-0">
+          <Search className="w-4 h-4 text-olive-500 absolute left-3.5 top-3 pointer-events-none" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search title, description, or tags..."
-            className="w-full pl-9 pr-4 py-2 bg-parchment-50 border border-parchment-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-marigold-500"
+            className="w-full pl-9 pr-4 py-2 bg-parchment-50 border border-parchment-300 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-marigold-500"
           />
         </div>
 
-        <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-          <div className="flex items-center gap-2 text-xs text-olive-700">
+        <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 text-xs text-olive-700">
             <Filter className="w-3.5 h-3.5 text-sage-600" />
             <span className="font-medium">Decision:</span>
           </div>
@@ -216,42 +212,44 @@ export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOp
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full min-w-0">
           {items.map((item) => {
             const Icon = getCategoryIcon(item.category);
             return (
               <div
                 key={item.id}
                 onClick={() => setSelectedItem(item)}
-                className="group rounded-2xl bg-parchment-100 border border-parchment-300 hover:border-marigold-400/80 p-5 shadow-soft-card hover:shadow-elevated transition-all cursor-pointer flex flex-col justify-between"
+                className="group rounded-2xl bg-parchment-100 border border-parchment-300 hover:border-marigold-400/80 p-4 sm:p-5 shadow-soft-card hover:shadow-elevated transition-all cursor-pointer flex flex-col justify-between w-full min-w-0 max-w-full overflow-hidden"
               >
-                <div>
+                <div className="min-w-0">
                   {/* Top line: Category & Status */}
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="flex items-center gap-1.5 text-[11px] font-mono text-sage-700 uppercase font-semibold">
-                      <Icon className="w-3.5 h-3.5 text-sage-600" />
-                      {item.category}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="flex items-center gap-1.5 text-[11px] font-mono text-sage-700 uppercase font-semibold truncate">
+                      <Icon className="w-3.5 h-3.5 text-sage-600 shrink-0" />
+                      <span className="truncate">{item.category}</span>
                     </span>
-                    {getStatusBadge(item.triageStatus, item.isPendingExorcism)}
+                    <div className="shrink-0">
+                      {getStatusBadge(item.triageStatus, item.isPendingExorcism)}
+                    </div>
                   </div>
 
                   {/* Item Visual Thumbnail */}
-                  <div className="mb-3">
+                  <div className="mb-3 w-full overflow-hidden">
                     <ItemThumbnail item={item} heightClass="h-40" />
                   </div>
 
                   {/* Title & Description */}
-                  <h3 className="font-serif font-bold text-lg text-olive-900 group-hover:text-olive-950 leading-snug mb-1.5">
+                  <h3 className="font-serif font-bold text-base sm:text-lg text-olive-900 group-hover:text-olive-950 leading-snug mb-1.5 break-words line-clamp-2">
                     {item.title}
                   </h3>
 
-                  <p className="text-xs text-olive-700 line-clamp-2 leading-relaxed mb-3">
+                  <p className="text-xs text-olive-700 line-clamp-2 leading-relaxed mb-3 break-words">
                     {item.description || item.contentSnippet || 'Digital memory document.'}
                   </p>
 
                   {/* AI Suggestion pill */}
                   {item.aiSuggestedStatus && (
-                    <div className="p-2 rounded-lg bg-sage-50 border border-sage-200/80 text-[11px] text-olive-800 flex items-center gap-1.5 mb-3">
+                    <div className="p-2 rounded-lg bg-sage-50 border border-sage-200/80 text-[11px] text-olive-800 flex items-center gap-1.5 mb-3 min-w-0">
                       <Sparkles className="w-3 h-3 text-marigold-600 shrink-0" />
                       <span className="truncate">
                         AI: <strong className="uppercase">{item.aiSuggestedStatus}</strong> ({Math.round((item.aiConfidence || 0.8) * 100)}%)
@@ -261,9 +259,9 @@ export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOp
                 </div>
 
                 {/* Card Footer: Metadata */}
-                <div className="pt-3 border-t border-parchment-200 flex items-center justify-between text-[11px] font-mono text-olive-600">
-                  <span>{(item.fileSize / 1024).toFixed(1)} KB</span>
-                  <span className="truncate max-w-[120px]">{item.recipient || 'No recipient set'}</span>
+                <div className="pt-3 border-t border-parchment-200 flex items-center justify-between text-[11px] font-mono text-olive-600 gap-2 min-w-0">
+                  <span className="shrink-0">{(item.fileSize / 1024).toFixed(1)} KB</span>
+                  <span className="truncate text-right">{item.recipient || 'No recipient set'}</span>
                 </div>
               </div>
             );

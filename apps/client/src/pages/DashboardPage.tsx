@@ -65,15 +65,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
   };
 
   return (
-    <div className="flex-1 p-8 max-w-7xl mx-auto space-y-8 animate-fade-in">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-7xl mx-auto min-w-0 space-y-6 sm:space-y-8 animate-fade-in">
       {/* Editorial Welcome Card (Inspired by Media 5 Kindred Banner & Media 2 Ofrenda) */}
-      <div className="relative rounded-3xl bg-olive-900 text-parchment-100 p-8 md:p-10 shadow-elevated border border-olive-800 overflow-hidden">
+      <div className="relative rounded-3xl bg-olive-900 text-parchment-100 p-5 sm:p-8 md:p-10 shadow-elevated border border-olive-800 overflow-hidden w-full min-w-0">
         {/* Glow backdrop */}
         <div className="absolute top-0 right-1/4 w-72 h-72 bg-marigold-500/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="flex items-center gap-2">
+          <div className="space-y-3 max-w-2xl min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-mono tracking-widest text-marigold-400 uppercase font-semibold">
                 MARISOL HERNANDEZ ESTATE SPACE
               </span>
@@ -82,12 +82,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-4xl font-normal text-parchment-50 tracking-tight leading-snug">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-normal text-parchment-50 tracking-tight leading-snug">
               Every voice matters. <br />
               Every story <span className="italic text-marigold-400">endures.</span>
             </h2>
 
-            <p className="text-sm text-parchment-300 font-sans leading-relaxed">
+            <p className="text-xs sm:text-sm text-parchment-300 font-sans leading-relaxed">
               Your living legacy archive is <strong className="text-marigold-300">{metrics.archiveStatusPercent}% organized</strong>. 
               {metrics.unassignedItems > 0 ? (
                 <span> You have <strong className="text-parchment-100">{metrics.unassignedItems} unassigned items</strong> awaiting your triage review.</span>
@@ -98,10 +98,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
           </div>
 
           {/* Quick Action Button Cluster */}
-          <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
+          <div className="flex flex-col sm:flex-row md:flex-col gap-2.5 sm:gap-3 shrink-0">
             <button
               onClick={onOpenImport}
-              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-marigold-500 hover:bg-marigold-400 text-olive-950 font-semibold rounded-xl text-sm shadow-md transition-all active:scale-98"
+              className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-marigold-500 hover:bg-marigold-400 text-olive-950 font-semibold rounded-xl text-xs sm:text-sm shadow-md transition-all active:scale-98"
             >
               <Plus className="w-4 h-4 text-olive-950" />
               <span>Add Local Files</span>
@@ -109,7 +109,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
 
             <button
               onClick={() => setIsOnboardingOpen(true)}
-              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-olive-800 hover:bg-olive-700 text-parchment-100 rounded-xl text-sm font-medium border border-olive-700 transition-colors"
+              className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-olive-800 hover:bg-olive-700 text-parchment-100 rounded-xl text-xs sm:text-sm font-medium border border-olive-700 transition-colors"
             >
               <Compass className="w-4 h-4 text-marigold-400" />
               <span>Onboarding Tour</span>
@@ -117,7 +117,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
 
             <button
               onClick={() => navigate('/sealed-ofrenda')}
-              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-olive-800/60 hover:bg-olive-800 text-parchment-200 rounded-xl text-sm font-medium border border-olive-700/80 transition-colors"
+              className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-olive-800/60 hover:bg-olive-800 text-parchment-200 rounded-xl text-xs sm:text-sm font-medium border border-olive-700/80 transition-colors"
             >
               <Lock className="w-4 h-4 text-sage-300" />
               <span>Seal Vault Archive</span>
@@ -127,7 +127,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
       </div>
 
       {/* Legacy Vault Readiness Card (Inspired by Media 7) */}
-      <div className="rounded-2xl bg-parchment-100 border border-parchment-300 p-6 shadow-soft-card">
+      <div className="rounded-2xl bg-parchment-100 border border-parchment-300 p-4 sm:p-6 shadow-soft-card w-full min-w-0">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
           <div>
             <div className="flex items-center gap-2">
@@ -138,12 +138,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
                 {metrics.archiveStatusPercent === 100 ? '● Complete' : '● In Progress'}
               </span>
             </div>
-            <p className="text-xs text-olive-700">
+            <p className="text-xs text-olive-700 mt-0.5">
               Your digital estate planning progress across triage, interviews, and letters.
             </p>
           </div>
 
-          <div className="text-right">
+          <div className="text-left sm:text-right">
             <span className="font-serif text-3xl font-bold text-olive-900">
               {metrics.archiveStatusPercent}%
             </span>
@@ -159,7 +159,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
         </div>
 
         {/* 6 Category Summary Cards (Matching Media 7) */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 w-full min-w-0">
           <div 
             onClick={() => navigate('/inventory')}
             className="p-3.5 rounded-xl bg-parchment-50 border border-parchment-200 hover:border-sage-400 hover:bg-parchment-100 transition-all cursor-pointer text-center"
@@ -217,7 +217,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onOpenIm
       </div>
 
       {/* Main Grid: Recommended Next Step & Recent Activity Feed */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 w-full min-w-0">
         {/* Next Step / Guidance (2 Cols) */}
         <div className="lg:col-span-2 space-y-6">
           <div className="rounded-2xl bg-parchment-100 border border-parchment-300 p-6 shadow-soft-card">

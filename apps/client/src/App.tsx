@@ -83,7 +83,7 @@ export const App: React.FC = () => {
   const navMeta = getNavMeta();
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-parchment-200 text-olive-900 font-sans selection:bg-marigold-200">
+    <div className="flex h-screen w-full max-w-full overflow-hidden bg-parchment-200 text-olive-900 font-sans selection:bg-marigold-200">
       {/* Deep Midnight Olive Navigation Sidebar */}
       <Sidebar
         currentRoute={currentRoute}
@@ -94,7 +94,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-screen overflow-y-auto min-w-0">
+      <div className="flex-1 flex flex-col h-screen overflow-y-auto min-w-0 w-full max-w-full">
         <Navbar
           title={navMeta.title}
           subtitle={navMeta.subtitle}
@@ -103,7 +103,7 @@ export const App: React.FC = () => {
           onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
         />
 
-        <main className="flex-1 flex flex-col">
+        <main className="flex-1 flex flex-col w-full min-w-0">
           {currentRoute === '/dashboard' && (
             <DashboardPage
               key={metricsKey}

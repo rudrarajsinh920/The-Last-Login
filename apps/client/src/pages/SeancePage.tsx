@@ -133,13 +133,13 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
   const answeredTurns = turns.filter(t => !t.isSkipped && t.userAnswer && t.userAnswer.trim().length > 0);
 
   return (
-    <div className="flex-1 p-8 max-w-5xl mx-auto space-y-8 animate-fade-in">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-5xl mx-auto min-w-0 space-y-6 sm:space-y-8 animate-fade-in">
       {/* Header & Sensitive Guidance Banner */}
       <div className="space-y-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div>
-            <div className="flex items-center gap-2.5">
-              <h2 className="font-serif text-3xl font-bold text-olive-900 tracking-tight">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-olive-900 tracking-tight">
                 Living Séance
               </h2>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-marigold-100 text-marigold-800 border border-marigold-300">
@@ -155,7 +155,7 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
             <CandleGlow size="sm" active={true} />
             <button
               onClick={() => handleAskNewQuestion()}
-              className="flex items-center gap-2 px-4 py-2 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-xs font-semibold shadow-sm transition-all"
+              className="flex items-center gap-2 px-3.5 sm:px-4 py-2 bg-olive-900 hover:bg-olive-800 text-parchment-50 rounded-xl text-xs font-semibold shadow-sm transition-all"
             >
               <Plus className="w-3.5 h-3.5 text-marigold-400" />
               <span>Prompt Next Reflection</span>
@@ -164,10 +164,10 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
         </div>
 
         {/* Ethical Safety Pledge Box */}
-        <div className="p-3.5 rounded-2xl bg-parchment-100 border border-parchment-300 text-xs text-olive-800 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
+        <div className="p-3.5 rounded-2xl bg-parchment-100 border border-parchment-300 text-xs text-olive-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4">
+          <div className="flex items-center gap-2.5 min-w-0">
             <Shield className="w-4 h-4 text-sage-600 shrink-0" />
-            <span>
+            <span className="leading-snug">
               <strong>Ethical Rule:</strong> The local AI assists your reflection. It never impersonates anyone or simulates the deceased.
             </span>
           </div>

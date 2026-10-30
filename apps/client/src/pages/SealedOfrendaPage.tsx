@@ -139,25 +139,25 @@ export const SealedOfrendaPage: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 p-8 max-w-5xl mx-auto space-y-8 animate-fade-in">
+    <div className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-5xl mx-auto min-w-0 space-y-6 sm:space-y-8 animate-fade-in">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <div className="flex items-center gap-2.5">
-            <h2 className="font-serif text-3xl font-bold text-olive-900 tracking-tight">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-olive-900 tracking-tight">
               Sealed Ofrenda
             </h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-sage-200 text-olive-900 border border-sage-300">
               AES-256-GCM Vault
             </span>
           </div>
-          <p className="text-xs text-olive-700 mt-1">
+          <p className="text-xs sm:text-sm text-olive-700 mt-1">
             Zero-knowledge cryptographic container. Encrypted locally with PBKDF2-SHA256 and AES-256-GCM.
           </p>
         </div>
 
         {/* Tab switch */}
-        <div className="flex items-center gap-1 p-1 bg-parchment-200 border border-parchment-300 rounded-xl self-start md:self-auto">
+        <div className="flex items-center gap-1 p-1 bg-parchment-200 border border-parchment-300 rounded-xl self-start sm:self-auto shrink-0">
           <button
             onClick={() => setActiveTab('seal')}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${

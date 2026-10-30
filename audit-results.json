@@ -1,0 +1,1391 @@
+{
+  "results": [
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "type": "desktop",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1920,
+        "winWidth": 1920,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1440x900",
+      "width": 1440,
+      "height": 900,
+      "type": "desktop",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1366x768",
+      "width": 1366,
+      "height": 768,
+      "type": "desktop",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1366,
+        "winWidth": 1366,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Desktop-1280x800",
+      "width": 1280,
+      "height": 800,
+      "type": "desktop",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1280,
+        "winWidth": 1280,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-1024x768",
+      "width": 1024,
+      "height": 768,
+      "type": "tablet",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Tablet-768x1024",
+      "width": 768,
+      "height": 1024,
+      "type": "tablet",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-430x932",
+      "width": 430,
+      "height": 932,
+      "type": "mobile",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 430,
+        "winWidth": 430,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-390x844",
+      "width": 390,
+      "height": 844,
+      "type": "mobile",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 390,
+        "winWidth": 390,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-375x812",
+      "width": 375,
+      "height": 812,
+      "type": "mobile",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-360x800",
+      "width": 360,
+      "height": 800,
+      "type": "mobile",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 360,
+        "winWidth": 360,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/dashboard",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/inventory",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/seance",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/decisions",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/letters",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/sealed-ofrenda",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/memorial-preview",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    },
+    {
+      "viewport": "Mobile-320x700",
+      "width": 320,
+      "height": 700,
+      "type": "mobile",
+      "route": "/settings",
+      "pass": true,
+      "details": {
+        "docScrollWidth": 320,
+        "winWidth": 320,
+        "hasHorizontalOverflow": false,
+        "diff": 0
+      }
+    }
+  ],
+  "errors": []
+}

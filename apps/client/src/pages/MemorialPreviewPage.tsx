@@ -74,11 +74,11 @@ export const MemorialPreviewPage: React.FC = () => {
   const { sections, letters, reflections, totalPreservedItems } = memorial;
 
   return (
-    <div className={`flex-1 min-h-screen transition-colors duration-700 ${candleMode ? 'bg-[#121B17] text-parchment-100' : 'bg-parchment-200 text-olive-900'}`}>
+    <div className={`flex-1 min-h-screen transition-colors duration-700 w-full min-w-0 ${candleMode ? 'bg-[#121B17] text-parchment-100' : 'bg-parchment-200 text-olive-900'}`}>
       {/* Top authentic Papel Picado lace border */}
       <PapelPicadoBanner className="opacity-90" />
 
-      <div className="max-w-6xl mx-auto px-6 py-10 space-y-12 animate-fade-in">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 sm:space-y-12 animate-fade-in w-full min-w-0">
         {/* Controls & Sensitive Disclaimer */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div className="flex items-center gap-3">
