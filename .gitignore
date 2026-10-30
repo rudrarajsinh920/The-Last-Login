@@ -1,5 +1,47 @@
+# Dependencies
 node_modules/
+
+# Production builds
 dist/
-.DS_Store
+build/
+
+# Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Environment configurations & local secrets
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# Local SQLite databases and write-ahead logs
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+apps/server/data/*.db
+apps/server/data/*.db-wal
+apps/server/data/*.db-shm
+
+# User-uploaded files and private documents
+apps/server/data/uploads/*
+!apps/server/data/uploads/.gitkeep
+
+# Exported encrypted .ofrenda archives and temp extraction dirs
+*.ofrenda
+apps/server/data/archives/*
+!apps/server/data/archives/.gitkeep
 data/archives/tmp/
+
+# Coverage and cache
+coverage/
+.cache/
