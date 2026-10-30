@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-olive: #18251F;
+  --color-parchment: #F5EFE3;
+  --color-marigold: #D99A35;
+  --color-terracotta: #B96F54;
+  --color-sage: #8C9A7A;
+}
+
+@layer base {
+  body {
+    background-color: #F5EFE3;
+    color: #18251F;
+    font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Newsreader', 'Larken', Georgia, serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom delicate flickering candle animation */
+@keyframes flicker {
+  0%, 100% {
+    opacity: 0.95;
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 0 10px rgba(217, 154, 53, 0.7));
+  }
+  25% {
+    opacity: 0.85;
+    transform: scale(0.98) translateY(-1px) skewX(-1deg);
+    filter: drop-shadow(0 0 14px rgba(217, 154, 53, 0.9));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03) translateY(0.5px) skewX(1deg);
+    filter: drop-shadow(0 0 18px rgba(217, 154, 53, 0.8));
+  }
+  75% {
+    opacity: 0.9;
+    transform: scale(0.99) translateY(-0.5px);
+    filter: drop-shadow(0 0 12px rgba(217, 154, 53, 0.75));
+  }
+}
+
+.animate-flicker {
+  animation: flicker 3s ease-in-out infinite;
+}
+
+/* Custom scrollbars with warm parchment tones */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(24, 37, 31, 0.04);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8C9A7A;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #18251F;
+}

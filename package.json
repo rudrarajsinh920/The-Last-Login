@@ -1,0 +1,20 @@
+{
+  "name": "the-last-login-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build:shared": "npm run build --workspace=@the-last-login/shared",
+    "dev:server": "npm run dev --workspace=@the-last-login/server",
+    "dev:client": "npm run dev --workspace=@the-last-login/client",
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"cyan,magenta\" \"npm run dev:server\" \"npm run dev:client\"",
+    "build": "npm run build:shared && npm run build --workspace=@the-last-login/server && npm run build --workspace=@the-last-login/client",
+    "test": "npm run test --workspace=@the-last-login/server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
