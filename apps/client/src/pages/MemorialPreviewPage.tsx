@@ -76,7 +76,7 @@ export const MemorialPreviewPage: React.FC = () => {
   return (
     <div className={`flex-1 min-h-screen transition-colors duration-700 w-full min-w-0 ${candleMode ? 'bg-[#121B17] text-parchment-100' : 'bg-parchment-200 text-olive-900'}`}>
       {/* Top authentic Papel Picado lace border */}
-      <PapelPicadoBanner className="opacity-90" />
+      <PapelPicadoBanner className="opacity-90" showGhost={false} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8 sm:space-y-12 animate-fade-in w-full min-w-0">
         {/* Controls & Sensitive Disclaimer */}

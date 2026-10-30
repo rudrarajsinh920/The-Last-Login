@@ -54,6 +54,150 @@
   animation: flicker 3s ease-in-out infinite;
 }
 
+/* ==========================================================================
+   Continuous Six-Color Digital Ofrenda Banner & Ghost Animations
+   Palette: Marigold (#D99A35), Terracotta (#B96F54), Sage (#8C9A7A),
+            Midnight Olive (#18251F), Warm Gold (#E4B45A), Dusty Rose (#C78372)
+   ========================================================================== */
+
+@keyframes ofrendaColorCycle {
+  0% {
+    background-color: #D99A35;
+    border-color: rgba(217, 154, 53, 0.5);
+  }
+  16.66% {
+    background-color: #B96F54;
+    border-color: rgba(185, 111, 84, 0.5);
+  }
+  33.33% {
+    background-color: #8C9A7A;
+    border-color: rgba(140, 154, 122, 0.5);
+  }
+  50.00% {
+    background-color: #18251F;
+    border-color: rgba(24, 37, 31, 0.6);
+  }
+  66.66% {
+    background-color: #E4B45A;
+    border-color: rgba(228, 180, 90, 0.5);
+  }
+  83.33% {
+    background-color: #C78372;
+    border-color: rgba(199, 131, 114, 0.5);
+  }
+  100% {
+    background-color: #D99A35;
+    border-color: rgba(217, 154, 53, 0.5);
+  }
+}
+
+.animate-ofrenda-color {
+  animation: ofrendaColorCycle 18s ease-in-out infinite;
+}
+
+/* Gentle paper breeze sway on left and right garlands */
+@keyframes ofrendaBreezeLeft {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2.5px) rotate(-1.2deg);
+  }
+  50% {
+    transform: translateY(1.5px) rotate(0.6deg);
+  }
+  75% {
+    transform: translateY(-1.2px) rotate(0.9deg);
+  }
+}
+
+@keyframes ofrendaBreezeRight {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(2px) rotate(1.1deg);
+  }
+  50% {
+    transform: translateY(-1.8px) rotate(-0.8deg);
+  }
+  75% {
+    transform: translateY(1.2px) rotate(-0.5deg);
+  }
+}
+
+.animate-breeze-left {
+  animation: ofrendaBreezeLeft 4.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.animate-breeze-right {
+  animation: ofrendaBreezeRight 5.2s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* Friendly Memory Guardian Ghost floating physics */
+@keyframes ghostFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-7px) translateX(1.5px) rotate(1.5deg);
+  }
+  70% {
+    transform: translateY(3px) translateX(-1.5px) rotate(-1.2deg);
+  }
+}
+
+@keyframes ghostSkirt {
+  0%, 100% {
+    transform: scaleX(1) scaleY(1);
+  }
+  50% {
+    transform: scaleX(1.03) scaleY(0.98);
+  }
+}
+
+@keyframes ghostBlink {
+  0%, 90%, 96%, 100% {
+    transform: scaleY(1);
+  }
+  93% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes ghostShadow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  30% {
+    transform: scale(0.85);
+    opacity: 0.18;
+  }
+  70% {
+    transform: scale(1.08);
+    opacity: 0.4;
+  }
+}
+
+.animate-ghost-float {
+  animation: ghostFloat 4.2s ease-in-out infinite;
+}
+
+.animate-ghost-skirt {
+  animation: ghostSkirt 2.6s ease-in-out infinite;
+}
+
+.animate-ghost-blink {
+  animation: ghostBlink 6.5s ease-in-out infinite;
+}
+
+.animate-ghost-shadow {
+  animation: ghostShadow 4.2s ease-in-out infinite;
+}
+
 /* Custom scrollbars with warm parchment tones */
 ::-webkit-scrollbar {
   width: 8px;
@@ -105,8 +249,14 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .animate-flicker {
+  .animate-flicker,
+  .animate-ofrenda-color,
+  .animate-breeze-left,
+  .animate-breeze-right,
+  .animate-ghost-float,
+  .animate-ghost-skirt,
+  .animate-ghost-blink,
+  .animate-ghost-shadow {
     animation: none !important;
-    filter: drop-shadow(0 0 10px rgba(217, 154, 53, 0.5)) !important;
   }
 }
