@@ -3,7 +3,9 @@
 > **Tagline:** Your memories. Your wishes. Your control.  
 > **Concept:** A Private AI Digital Estate Planner.
 
-[![Tests](https://img.shields.io/badge/tests-12%20passed-8C9A7A?style=flat-square)](https://github.com/your-username/the-last-login)
+[![Deployment](https://img.shields.io/badge/Vercel-Live%20Preview-18251F?style=flat-square&logo=vercel)](https://the-last-login-green.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-rudrarajsinh920%2FThe--Last--Login-D99A35?style=flat-square&logo=github)](https://github.com/rudrarajsinh920/The-Last-Login)
+[![Tests](https://img.shields.io/badge/tests-12%20passed-8C9A7A?style=flat-square)](https://github.com/rudrarajsinh920/The-Last-Login)
 [![License: MIT](https://img.shields.io/badge/license-MIT-D99A35?style=flat-square)](LICENSE)
 [![Zero Cloud Egress](https://img.shields.io/badge/cloud%20egress-0%20bytes-18251F?style=flat-square)](docs/ARCHITECTURE.md)
 [![Encryption: AES-256-GCM](https://img.shields.io/badge/vault-AES--256--GCM-B96F54?style=flat-square)](docs/CRYPTOGRAPHY_AND_KEY_RECOVERY.md)
@@ -325,8 +327,8 @@ The repository includes a complete, pre-configured fictional estate scenario for
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/the-last-login.git
-cd the-last-login
+git clone https://github.com/rudrarajsinh920/The-Last-Login.git
+cd The-Last-Login
 
 # Install monorepo dependencies
 npm install
