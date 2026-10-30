@@ -19,6 +19,7 @@ import { CandleGlow } from '../components/CandleGlow';
 import { PapelPicadoBanner } from '../components/PapelPicadoBanner';
 import { ItemThumbnail } from '../components/ItemThumbnail';
 import { InventoryItem, LegacyLetter, SeanceTurn } from '@the-last-login/shared';
+import { useGhost } from '../context/GhostContext';
 
 const getInitialMemorial = () => {
   const mem = clientStore.getMemorialItems();
@@ -46,6 +47,8 @@ export const MemorialPreviewPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [candleMode, setCandleMode] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState<InventoryItem | null>(null);
+
+  const { ghostHappy, ghostCurious } = useGhost();
 
   useEffect(() => {
     loadMemorial();
@@ -90,7 +93,11 @@ export const MemorialPreviewPage: React.FC = () => {
 
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setCandleMode(!candleMode)}
+              onClick={() => {
+                const nextMode = !candleMode;
+                setCandleMode(nextMode);
+                ghostHappy(nextMode ? 'Candlelight glow ignited' : 'Parchment light restored');
+              }}
               className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-mono transition-all bg-white/10 hover:bg-white/20 text-parchment-100"
             >
               <Flame className={`w-3.5 h-3.5 ${candleMode ? 'text-marigold-400' : 'text-olive-400'}`} />

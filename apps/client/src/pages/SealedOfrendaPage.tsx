@@ -18,6 +18,7 @@ import { api } from '../services/api';
 import { VaultArchive } from '@the-last-login/shared';
 import { KeyRecoveryModal } from '../components/KeyRecoveryModal';
 import { CandleGlow } from '../components/CandleGlow';
+import { useGhost } from '../context/GhostContext';
 
 export const SealedOfrendaPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'seal' | 'verify'>('seal');
@@ -43,6 +44,8 @@ export const SealedOfrendaPage: React.FC = () => {
   const [verificationResult, setVerificationResult] = useState<any>(null);
   const [verifyError, setVerifyError] = useState<string | null>(null);
 
+  const { ghostCelebrating, ghostConcerned, ghostWelcoming } = useGhost();
+
   useEffect(() => {
     loadArchiveStatus();
   }, []);
@@ -62,10 +65,12 @@ export const SealedOfrendaPage: React.FC = () => {
   const handleSealArchive = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!passphrase || passphrase.length < 6) {
+      ghostConcerned('Passphrase must be at least 6 characters long');
       alert('Passphrase must be at least 6 characters long.');
       return;
     }
     if (passphrase !== confirmPassphrase) {
+      ghostConcerned('Passphrases do not match');
       alert('Passphrases do not match.');
       return;
     }
@@ -76,7 +81,9 @@ export const SealedOfrendaPage: React.FC = () => {
       setSealedArchive(res);
       setShowRecoverySheet(true);
       await loadArchiveStatus();
+      ghostCelebrating('Vault sealed with authenticated AES-256-GCM encryption');
     } catch (err: any) {
+      ghostConcerned('Failed to seal digital ofrenda vault');
       alert(err.message || 'Failed to seal archive');
     } finally {
       setIsSealing(false);
@@ -86,6 +93,7 @@ export const SealedOfrendaPage: React.FC = () => {
   const handleVerifyUploaded = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!verifyPassphrase) {
+      ghostConcerned('Please enter your vault passphrase');
       alert('Please enter your passphrase.');
       return;
     }
@@ -102,6 +110,7 @@ export const SealedOfrendaPage: React.FC = () => {
           const archiveData = JSON.parse(text);
           const data = await api.verifyArchive(archiveData, verifyPassphrase);
           setVerificationResult(data);
+          ghostWelcoming('Archive verified & memories restored');
         } catch {
           // If in-browser parsing fails, fallback to server upload endpoint
           const formData = new FormData();
@@ -115,15 +124,19 @@ export const SealedOfrendaPage: React.FC = () => {
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || 'Verification failed');
           setVerificationResult(data);
+          ghostWelcoming('Archive verified & memories restored');
         }
       } else if (sealedArchive?.archive) {
         // Verify current sealed archive
         const data = await api.verifyArchive(sealedArchive.archive, verifyPassphrase);
         setVerificationResult(data);
+        ghostWelcoming('Archive verified & memories restored');
       } else {
+        ghostConcerned('Please select an .ofrenda file to verify');
         alert('Please select an .ofrenda file or seal a vault first.');
       }
     } catch (err: any) {
+      ghostConcerned('Decryption failed. Please check passphrase');
       setVerifyError(err.message || 'Decryption failed.');
     } finally {
       setIsVerifying(false);

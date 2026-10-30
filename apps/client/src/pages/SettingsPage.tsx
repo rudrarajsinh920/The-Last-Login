@@ -12,6 +12,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { api } from '../services/api';
+import { useGhost } from '../context/GhostContext';
 
 export const SettingsPage: React.FC = () => {
   const [endpoint, setEndpoint] = useState('http://localhost:11434');
@@ -22,6 +23,8 @@ export const SettingsPage: React.FC = () => {
   const [isTesting, setIsTesting] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+
+  const { ghostAcknowledge, ghostCelebrating, ghostConcerned, ghostThinking } = useGhost();
 
   useEffect(() => {
     loadSettings();
@@ -44,10 +47,17 @@ export const SettingsPage: React.FC = () => {
 
   const handleTestAI = async () => {
     setIsTesting(true);
+    ghostThinking('Pinging local Ollama endpoint...');
     try {
       const status = await api.testAi();
       setAiStatus(status);
+      if (status.ollamaAvailable) {
+        ghostCelebrating(`Connected to local Ollama (${status.model})`);
+      } else {
+        ghostAcknowledge('Local heuristics active (Zero Cloud Egress)');
+      }
     } catch (e) {
+      ghostConcerned('Local AI endpoint unreachable; heuristics active');
       alert('Failed to connect to local AI endpoint');
     } finally {
       setIsTesting(false);
@@ -68,8 +78,10 @@ export const SettingsPage: React.FC = () => {
         theme: 'parchment'
       });
       setSaveMessage('Preferences updated successfully.');
+      ghostAcknowledge('Local preferences saved');
       setTimeout(() => setSaveMessage(null), 3000);
     } catch (e) {
+      ghostConcerned('Failed to save settings');
       alert('Failed to save settings');
     } finally {
       setIsSaving(false);
@@ -79,6 +91,7 @@ export const SettingsPage: React.FC = () => {
   const handleReloadDemo = async () => {
     if (confirm('Reload the full fictional demo scenario for Marisol Hernandez?')) {
       await api.loadMarisolDemo();
+      ghostCelebrating('Fictional Marisol demo reloaded');
       alert('Marisol demo dataset loaded!');
     }
   };
@@ -86,6 +99,7 @@ export const SettingsPage: React.FC = () => {
   const handleResetWorkspace = async () => {
     if (confirm('Are you sure you want to clear all data and start with a blank estate workspace?')) {
       await api.resetWorkspace();
+      ghostConcerned('Estate workspace reset');
       alert('Workspace reset to empty state.');
     }
   };

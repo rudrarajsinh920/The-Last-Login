@@ -17,6 +17,7 @@ import { api } from '../services/api';
 import { clientStore } from '../services/clientStore';
 import { SeanceTurn, InventoryItem } from '@the-last-login/shared';
 import { CandleGlow } from '../components/CandleGlow';
+import { useGhost } from '../context/GhostContext';
 
 interface SeancePageProps {
   initialItemId?: string;
@@ -31,6 +32,7 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
   const [editingTurnId, setEditingTurnId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
   const [selectedItemId, setSelectedItemId] = useState<string>(initialItemId || '');
+  const { ghostCurious, ghostCelebrating, ghostAcknowledge } = useGhost();
 
   useEffect(() => {
     loadData();
@@ -58,6 +60,7 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
   };
 
   const handleAskNewQuestion = async (specificItemId?: string) => {
+    ghostCurious('Reflective question evoked');
     try {
       const turn = await api.askSeanceQuestion(specificItemId || selectedItemId || undefined);
       setTurns(prev => [...prev, turn]);
@@ -81,11 +84,13 @@ export const SeancePage: React.FC<SeancePageProps> = ({ initialItemId }) => {
       setTurns(prev => prev.map(t => t.id === updated.id ? updated : t));
       setUserAnswer('');
       setActiveTurn(null);
+      ghostCelebrating('Reflection lovingly documented');
     } catch {
       const updated = clientStore.answerSeanceQuestion(activeTurn.id, userAnswer.trim());
       setTurns(prev => prev.map(t => t.id === updated.id ? updated : t));
       setUserAnswer('');
       setActiveTurn(null);
+      ghostCelebrating('Reflection lovingly documented');
     } finally {
       setIsSubmitting(false);
     }

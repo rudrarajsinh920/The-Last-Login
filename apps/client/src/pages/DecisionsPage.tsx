@@ -15,6 +15,7 @@ import {
 import { api } from '../services/api';
 import { clientStore } from '../services/clientStore';
 import { InventoryItem, TriageStatus } from '@the-last-login/shared';
+import { useGhost } from '../context/GhostContext';
 
 export const DecisionsPage: React.FC = () => {
   const [items, setItems] = useState<InventoryItem[]>(() => clientStore.getInventory());
@@ -23,6 +24,7 @@ export const DecisionsPage: React.FC = () => {
   const [editReason, setEditReason] = useState('');
   const [editRecipient, setEditRecipient] = useState('');
   const [loading, setLoading] = useState(false);
+  const { ghostHappy, ghostThinking, ghostConcerned, ghostAcknowledge } = useGhost();
 
   useEffect(() => {
     loadItems();
@@ -54,6 +56,14 @@ export const DecisionsPage: React.FC = () => {
         isPendingExorcism: newStatus === 'exorcise'
       } : i));
       setEditingItemId(null);
+
+      if (newStatus === 'keep') {
+        ghostHappy('Preserved in your ofrenda');
+      } else if (newStatus === 'release') {
+        ghostThinking('Designated to share with loved ones');
+      } else if (newStatus === 'exorcise') {
+        ghostConcerned('Designated to lay to rest with dignity');
+      }
     } catch (e) {
       alert('Failed to update decision');
     }
@@ -63,6 +73,7 @@ export const DecisionsPage: React.FC = () => {
     if (confirm(`Are you certain you wish to permanently delete "${title}"? This cannot be undone.`)) {
       try {
         await api.confirmExorcise(itemId);
+        ghostConcerned('Memory gently laid to rest');
         setItems(prev => prev.filter(i => i.id !== itemId));
       } catch (e) {
         alert('Failed to delete item');
@@ -73,6 +84,7 @@ export const DecisionsPage: React.FC = () => {
   const handleRestore = async (itemId: string) => {
     try {
       await api.restoreExorcise(itemId);
+      ghostAcknowledge('Restored to inventory');
       setItems(prev => prev.map(i => i.id === itemId ? {
         ...i,
         triageStatus: 'unassigned',

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Navbar } from './components/Navbar';
 import { FileImportModal } from './components/FileImportModal';
+import { GlobalGhostCompanion } from './components/GlobalGhostCompanion';
+import { GhostProvider, useGhost } from './context/GhostContext';
 import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { InventoryPage } from './pages/InventoryPage';
@@ -12,8 +14,7 @@ import { SealedOfrendaPage } from './pages/SealedOfrendaPage';
 import { MemorialPreviewPage } from './pages/MemorialPreviewPage';
 import { SettingsPage } from './pages/SettingsPage';
 
-export const App: React.FC = () => {
-  // Simple, robust client-side routing based on window.location.pathname
+const AppInner: React.FC = () => {
   const [currentRoute, setCurrentRoute] = useState<string>(() => {
     const p = window.location.pathname;
     return p && p !== '' ? p : '/';
@@ -23,6 +24,8 @@ export const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [seanceItemId, setSeanceItemId] = useState<string | undefined>(undefined);
   const [metricsKey, setMetricsKey] = useState(0);
+
+  const { ghostAcknowledge, ghostHappy, ghostThinking } = useGhost();
 
   useEffect(() => {
     const handlePopState = () => {
@@ -40,6 +43,21 @@ export const App: React.FC = () => {
     setCurrentRoute(route);
     setIsMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Contextual ghost response on route change
+    if (route !== '/') {
+      const titles: Record<string, string> = {
+        '/dashboard': 'Welcome to My Legacy',
+        '/inventory': 'Viewing Life Inventory',
+        '/seance': 'Entering Living Séance',
+        '/decisions': 'Triage & Decisions',
+        '/letters': 'Legacy Letters Workspace',
+        '/sealed-ofrenda': 'Sealed Ofrenda Vault',
+        '/memorial-preview': 'Memorial Preview Tribute',
+        '/settings': 'Settings & Privacy'
+      };
+      ghostAcknowledge(titles[route] || 'Opening section');
+    }
   };
 
   const handleOpenSeanceForItem = (itemId: string) => {
@@ -53,7 +71,12 @@ export const App: React.FC = () => {
 
   // If on landing page, render without app sidebar
   if (currentRoute === '/') {
-    return <LandingPage navigate={navigate} />;
+    return (
+      <>
+        <LandingPage navigate={navigate} />
+        <GlobalGhostCompanion currentRoute={currentRoute} />
+      </>
+    );
   }
 
   // Get Navbar metadata for active route
@@ -98,8 +121,14 @@ export const App: React.FC = () => {
         <Navbar
           title={navMeta.title}
           subtitle={navMeta.subtitle}
-          onOpenImport={() => setIsImportOpen(true)}
-          onQuickSeal={() => navigate('/sealed-ofrenda')}
+          onOpenImport={() => {
+            ghostHappy('Cataloging a new memory');
+            setIsImportOpen(true);
+          }}
+          onQuickSeal={() => {
+            ghostThinking('Preparing your encrypted archive');
+            navigate('/sealed-ofrenda');
+          }}
           onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
         />
 
@@ -108,12 +137,18 @@ export const App: React.FC = () => {
             <DashboardPage
               key={metricsKey}
               navigate={navigate}
-              onOpenImport={() => setIsImportOpen(true)}
+              onOpenImport={() => {
+                ghostHappy('Adding memory to inventory');
+                setIsImportOpen(true);
+              }}
             />
           )}
           {currentRoute === '/inventory' && (
             <InventoryPage
-              onOpenImport={() => setIsImportOpen(true)}
+              onOpenImport={() => {
+                ghostHappy('Adding memory to inventory');
+                setIsImportOpen(true);
+              }}
               onOpenSeanceForItem={handleOpenSeanceForItem}
             />
           )}
@@ -138,6 +173,9 @@ export const App: React.FC = () => {
         </main>
       </div>
 
+      {/* Global Interactive Ghost Companion */}
+      <GlobalGhostCompanion currentRoute={currentRoute} />
+
       {/* File Import Modal */}
       <FileImportModal
         isOpen={isImportOpen}
@@ -147,5 +185,13 @@ export const App: React.FC = () => {
         }}
       />
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <GhostProvider>
+      <AppInner />
+    </GhostProvider>
   );
 };

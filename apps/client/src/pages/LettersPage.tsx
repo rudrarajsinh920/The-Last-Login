@@ -16,6 +16,7 @@ import {
 import { api } from '../services/api';
 import { clientStore } from '../services/clientStore';
 import { LegacyLetter, LetterTone, LetterType } from '@the-last-login/shared';
+import { useGhost } from '../context/GhostContext';
 
 export const LettersPage: React.FC = () => {
   const initialList = clientStore.getLetters();
@@ -25,6 +26,7 @@ export const LettersPage: React.FC = () => {
   const [isAssisting, setIsAssisting] = useState(false);
   const [aiNotes, setAiNotes] = useState<string | null>(null);
   const [previewMode, setPreviewMode] = useState(false);
+  const { ghostHappy, ghostCelebrating, ghostThinking, ghostCurious } = useGhost();
 
   // Form states
   const [title, setTitle] = useState(() => initialList[0]?.title || '');
@@ -105,6 +107,7 @@ export const LettersPage: React.FC = () => {
         setLetters(prev => [created, ...prev]);
         setActiveLetter(created);
         setIsCreating(false);
+        ghostHappy('Letter saved to drafts');
       }
     } catch (e) {
       alert('Failed to save letter');
@@ -118,6 +121,11 @@ export const LettersPage: React.FC = () => {
       await api.approveLetter(activeLetter.id, newStatus);
       setActiveLetter({ ...activeLetter, isApproved: newStatus });
       setLetters(prev => prev.map(l => l.id === activeLetter.id ? { ...l, isApproved: newStatus } : l));
+      if (newStatus) {
+        ghostCelebrating('Letter approved for legacy archive');
+      } else {
+        ghostHappy('Reverted letter to draft');
+      }
     } catch (e) {
       alert('Failed to toggle approval status');
     }
@@ -139,6 +147,7 @@ export const LettersPage: React.FC = () => {
   };
 
   const handleAIAssist = async (action: 'draft_opening' | 'deepen_memory' | 'polish_tone' | 'create_full_draft') => {
+    ghostThinking('Refining words with compassionate AI...');
     setIsAssisting(true);
     try {
       const res = await api.assistLetter({

@@ -22,6 +22,7 @@ import { clientStore } from '../services/clientStore';
 import { InventoryItem, ItemCategory, TriageStatus } from '@the-last-login/shared';
 import { ItemDetailModal } from '../components/ItemDetailModal';
 import { ItemThumbnail } from '../components/ItemThumbnail';
+import { useGhost } from '../context/GhostContext';
 
 interface InventoryPageProps {
   onOpenImport: () => void;
@@ -35,6 +36,7 @@ export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOp
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
   const [loading, setLoading] = useState(false);
+  const { ghostCurious, ghostAcknowledge } = useGhost();
 
   useEffect(() => {
     loadInventory();
@@ -141,7 +143,10 @@ export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOp
             return (
               <button
                 key={c.id}
-                onClick={() => setSelectedCategory(c.id)}
+                onClick={() => {
+                  setSelectedCategory(c.id);
+                  if (c.id !== selectedCategory) ghostAcknowledge(`Filtering by ${c.label}`);
+                }}
                 className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all shrink-0 min-h-[38px] ${
                   isSelected
                     ? 'bg-olive-900 text-parchment-50 shadow-sm font-semibold'
@@ -165,6 +170,9 @@ export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOp
           <input
             type="text"
             value={search}
+            onFocus={() => {
+              if (!search) ghostCurious('Searching local memory catalog');
+            }}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search title, description, or tags..."
             className="w-full pl-9 pr-4 py-2 bg-parchment-50 border border-parchment-300 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-marigold-500"
@@ -178,7 +186,10 @@ export const InventoryPage: React.FC<InventoryPageProps> = ({ onOpenImport, onOp
           </div>
           <select
             value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
+            onChange={(e) => {
+              setSelectedStatus(e.target.value);
+              ghostAcknowledge(`Showing ${e.target.value} decisions`);
+            }}
             className="px-3 py-1.5 bg-parchment-50 border border-parchment-300 rounded-xl text-xs text-olive-900 focus:outline-none focus:ring-2 focus:ring-marigold-500 font-medium"
           >
             <option value="all">All Decisions</option>

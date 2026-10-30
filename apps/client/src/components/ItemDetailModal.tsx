@@ -18,6 +18,7 @@ import {
 import { InventoryItem, TriageStatus } from '@the-last-login/shared';
 import { api } from '../services/api';
 import { ItemThumbnail } from './ItemThumbnail';
+import { useGhost } from '../context/GhostContext';
 
 interface ItemDetailModalProps {
   item: InventoryItem | null;
@@ -48,12 +49,20 @@ export const ItemDetailModal: React.FC<ItemDetailModalProps> = ({
   const [recipient, setRecipient] = useState(item.recipient || '');
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { ghostHappy, ghostThinking, ghostConcerned } = useGhost();
 
   const handleSaveTriage = async (newStatus: TriageStatus) => {
     setIsSaving(true);
     try {
       await api.triageItem(item.id, newStatus, decisionReason, recipient);
       setTriageStatus(newStatus);
+      if (newStatus === 'keep') {
+        ghostHappy('Preserved in your ofrenda');
+      } else if (newStatus === 'release') {
+        ghostThinking('Designated to share with loved ones');
+      } else if (newStatus === 'exorcise') {
+        ghostConcerned('Designated to lay to rest with dignity');
+      }
       onUpdate();
     } catch (err) {
       alert('Failed to update decision');
@@ -67,6 +76,7 @@ export const ItemDetailModal: React.FC<ItemDetailModalProps> = ({
       setIsDeleting(true);
       try {
         await api.confirmExorcise(item.id);
+        ghostConcerned('Memory gently laid to rest');
         onUpdate();
         onClose();
       } catch (e) {
